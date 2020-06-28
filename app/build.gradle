@@ -20,6 +20,11 @@ android {
         dataBinding = true
     }
 
+    compileOptions {
+        targetCompatibility = "8"
+        sourceCompatibility = "8"
+    }
+
     buildTypes {
         release {
             minifyEnabled false
@@ -54,9 +59,12 @@ dependencies {
 
     // converter moshi / json parser
     def moshi_version = '2.9.0'
-    def moshi_kotlin_version = '1.9.2'
+    def moshi_kotlin_version = '1.9.3'
     implementation "com.squareup.retrofit2:converter-moshi:$moshi_version"
+
+    // moshi-kotlin reflection for kotlin support
     implementation "com.squareup.moshi:moshi-kotlin:$moshi_kotlin_version"
+    // moshi-codegen for annotations support
     kapt("com.squareup.moshi:moshi-kotlin-codegen:$moshi_kotlin_version")
 
     // material card
