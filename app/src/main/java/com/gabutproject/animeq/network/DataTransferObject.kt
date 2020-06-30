@@ -22,6 +22,20 @@ import org.w3c.dom.Text
 //  "continuing": false
 //}
 
+data class Genre (
+    val mal_id: Int,
+    val type: String,
+    val name: String,
+    val url: String
+)
+
+data class Producer(
+    val mal_id: Int,
+    val type: String,
+    val name: String,
+    val url: String
+)
+
 data class AnimeProperty (
     val mal_id: Int,
     val url: String,
@@ -29,14 +43,14 @@ data class AnimeProperty (
     val image_url: String,
     val synopsis: String,
     val type: String,
-    val airing_start: String,
-    val episodes: Int,
-    val members: Int,
-    val genres: List<Text>,
+    val airing_start: String?,
+    val episodes: Int?,
+    val members: Int?,
+    val genres: List<Genre>,
     val source: String,
-    val producers: List<Text>,
-    val score: Float,
-    val licensors: List<Text>,
+    val producers: List<Producer>?,
+    val score: Float?,
+    val licencors: List<String>?,
     val r18: Boolean,
     val kids: Boolean,
     val continuing: Boolean
