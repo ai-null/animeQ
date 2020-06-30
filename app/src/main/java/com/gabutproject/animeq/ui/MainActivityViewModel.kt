@@ -1,24 +1,31 @@
 package com.gabutproject.animeq.ui
 
-import android.util.Log
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.gabutproject.animeq.network.JikanNetwork
+import com.gabutproject.animeq.network.SeasonalProperty
+import com.gabutproject.animeq.repository.SeasonalRepository
 import kotlinx.coroutines.*
 
 class MainActivityViewModel : ViewModel() {
 
+    private val seasonalRepository = SeasonalRepository()
+
     private val job = SupervisorJob()
     private val uiScope = CoroutineScope(job + Dispatchers.Main)
 
+    private val _seasonalAnime = MutableLiveData<SeasonalProperty>()
+    val seasonalAnime: LiveData<SeasonalProperty> get() = _seasonalAnime
+
     init {
-        getData()
+        refreshDataFromRepository()
     }
 
-    private fun getData() {
+    private fun refreshDataFromRepository() {
         uiScope.launch {
-            val data = JikanNetwork.service.getCurrentSeasonAsync()
+            seasonalRepository.refreshData()
 
-            Log.i("anime data", data.anime[0].title)
+            _seasonalAnime.value = seasonalRepository.seasonalAnime
         }
     }
 }
