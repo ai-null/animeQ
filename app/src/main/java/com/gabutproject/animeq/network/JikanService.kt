@@ -1,10 +1,8 @@
 package com.gabutproject.animeq.network
 
+import androidx.lifecycle.LiveData
 import com.squareup.moshi.Moshi
 import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
-import kotlinx.coroutines.Deferred
-import org.w3c.dom.Text
-import retrofit2.Call
 import retrofit2.Retrofit
 import retrofit2.converter.moshi.MoshiConverterFactory
 import retrofit2.http.GET
@@ -31,18 +29,38 @@ const val SEASON: String = "season"
  */
 const val SEARCH: String = "search"
 
+// add moshi to convert kotlin adapter into java object
+// since data class not working so well with bare retrofit
 private val moshi = Moshi.Builder()
     .add(KotlinJsonAdapterFactory())
     .build()
 
+// setup retrofit for http handler
 private val retrofit = Retrofit.Builder()
     .baseUrl(BASE_URL)
     .addConverterFactory(MoshiConverterFactory.create(moshi))
     .build()
 
 interface JikanService {
+
+    /**
+     * this method returns list of anime in the current season
+     */
     @GET(SEASON)
     suspend fun getCurrentSeasonAsync(): SeasonalProperty
+
+    /**
+     * this method returns result of search by its title
+     *
+     * @query q String
+     *  anime title
+     *
+     * @query page Int
+     *  page of result, since there's possibility of similar title,
+     *  the result is grouped by page
+     */
+    @GET(SEARCH)
+    suspend fun search(@Query("q") q: String, @Query("page") page: Int = 1)
 }
 
 object JikanNetwork {
