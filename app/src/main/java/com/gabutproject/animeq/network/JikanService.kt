@@ -1,6 +1,5 @@
 package com.gabutproject.animeq.network
 
-import androidx.lifecycle.LiveData
 import com.squareup.moshi.Moshi
 import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
 import retrofit2.Retrofit

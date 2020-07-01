@@ -8,10 +8,12 @@ import com.gabutproject.animeq.repository.SeasonalRepository
 import kotlinx.coroutines.*
 
 class MainActivityViewModel : ViewModel() {
-
+    // used for make an http request to seasonal-anime-related
     private val seasonalRepository = SeasonalRepository()
 
+    // setup supervisorJob to cancel all thread-related methods in once
     private val job = SupervisorJob()
+    // uiScope to run method on main-thread, don't make a call inside main thread
     private val uiScope = CoroutineScope(job + Dispatchers.Main)
 
     private val _seasonalAnime = MutableLiveData<SeasonalProperty>()
