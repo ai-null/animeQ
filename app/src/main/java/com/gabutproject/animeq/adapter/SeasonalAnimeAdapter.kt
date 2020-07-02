@@ -10,7 +10,7 @@ import com.gabutproject.animeq.R
 import com.gabutproject.animeq.network.AnimeProperty
 
 class ItemViewHolder(view: View) : RecyclerView.ViewHolder(view) {
-    val title = view.findViewById<TextView>(R.id.item_title)
+    val title: TextView = view.findViewById(R.id.item_title)
 
     companion object {
         @LayoutRes
