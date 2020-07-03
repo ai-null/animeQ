@@ -8,11 +8,10 @@ import android.widget.TextView
 import androidx.annotation.LayoutRes
 import androidx.recyclerview.widget.RecyclerView
 import com.gabutproject.animeq.R
-// import com.gabutproject.animeq.databinding.SeasonalAnimeItemBinding
 import com.gabutproject.animeq.network.AnimeProperty
 import com.gabutproject.animeq.util.imageUrl
 
-class ItemViewHolder(private var binding: View) :
+class ItemViewHolder constructor(binding: View) :
     RecyclerView.ViewHolder(binding) {
 
     val title: TextView = binding.findViewById(R.id.item_title)
@@ -36,7 +35,7 @@ class SeasonalAnimeAdapter : RecyclerView.Adapter<ItemViewHolder>() {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ItemViewHolder {
         val layoutInflater = LayoutInflater.from(parent.context)
         // val view = SeasonalAnimeItemBinding.inflate(layoutInflater)
-        val view = layoutInflater.inflate(R.layout.seasonal_anime_item, parent, false)
+        val view = layoutInflater.inflate(ItemViewHolder.LAYOUT, parent, false)
 
         return ItemViewHolder(view)
     }
