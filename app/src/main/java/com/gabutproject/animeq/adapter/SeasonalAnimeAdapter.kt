@@ -3,14 +3,19 @@ package com.gabutproject.animeq.adapter
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import android.widget.TextView
 import androidx.annotation.LayoutRes
 import androidx.recyclerview.widget.RecyclerView
 import com.gabutproject.animeq.R
 import com.gabutproject.animeq.network.AnimeProperty
+import com.gabutproject.animeq.util.imageUrl
 
-class ItemViewHolder(view: View) : RecyclerView.ViewHolder(view) {
-    val title: TextView = view.findViewById(R.id.item_title)
+class ItemViewHolder constructor(binding: View) :
+    RecyclerView.ViewHolder(binding) {
+
+    val title: TextView = binding.findViewById(R.id.item_title)
+    val coverImage: ImageView = binding.findViewById(R.id.cover_image)
 
     companion object {
         @LayoutRes
@@ -29,6 +34,7 @@ class SeasonalAnimeAdapter : RecyclerView.Adapter<ItemViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ItemViewHolder {
         val layoutInflater = LayoutInflater.from(parent.context)
+        // val view = SeasonalAnimeItemBinding.inflate(layoutInflater)
         val view = layoutInflater.inflate(ItemViewHolder.LAYOUT, parent, false)
 
         return ItemViewHolder(view)
@@ -39,6 +45,8 @@ class SeasonalAnimeAdapter : RecyclerView.Adapter<ItemViewHolder>() {
     override fun onBindViewHolder(holder: ItemViewHolder, position: Int) {
         val item = data[position]
 
+        // holder.bind(item)
+        holder.coverImage.imageUrl(item.image_url)
         holder.title.text = item.title
     }
 

@@ -28,6 +28,18 @@ const val SEASON: String = "season"
  */
 const val SEARCH: String = "search"
 
+/**
+ * @param /anime/{page}
+ *  return top anime by page
+ * @param /anime/1/airing - get top airing anime
+ * @param /anime/1/movie - get top movie anime
+ * @param /anime/1/tv - get top tv
+ * @param /anime/1/special - get top special
+ * @param /anime/1/upcoming - get top upcoming anime
+ * @param /anime/1/ova - get top ova anime
+ */
+const val TOP: String = "top"
+
 // add moshi to convert kotlin adapter into java object
 // since data class not working so well with bare retrofit
 private val moshi = Moshi.Builder()
