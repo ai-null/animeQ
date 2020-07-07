@@ -4,7 +4,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
-import androidx.recyclerview.widget.GridLayoutManager
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.gabutproject.animeq.R
 import com.gabutproject.animeq.adapter.SeasonalAnimeAdapter
 import com.gabutproject.animeq.databinding.ActivityMainBinding
@@ -26,7 +26,13 @@ class MainActivity : AppCompatActivity() {
         binding.viewModel = viewModel
         binding.lifecycleOwner = this
 
-        binding.seasonalAnimeList.layoutManager = GridLayoutManager(this, 2)
+        val layoutManager = LinearLayoutManager(
+            this,
+            LinearLayoutManager.HORIZONTAL,
+            false
+        )
+
+        binding.seasonalAnimeList.layoutManager = layoutManager
         binding.seasonalAnimeList.adapter = adapter
 
         updateLiveData()
