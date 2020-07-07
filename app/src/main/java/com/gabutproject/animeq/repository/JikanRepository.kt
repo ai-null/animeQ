@@ -1,9 +1,8 @@
 package com.gabutproject.animeq.repository
 
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
 import com.gabutproject.animeq.network.JikanNetwork
 import com.gabutproject.animeq.network.SeasonalProperty
+import com.gabutproject.animeq.network.UpcomingProperty
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 
@@ -14,10 +13,11 @@ import kotlinx.coroutines.withContext
  * separating repository and viewModel makes it easy to finds bugs,
  * so it will be a good practice to make readable code
  */
-class SeasonalRepository {
+class JikanRepository {
 
     // getter property of seasonalAnime
     lateinit var seasonalAnime: SeasonalProperty
+    lateinit var upcomingAnime: UpcomingProperty
 
     /**
      * Refresh data from the network and replace the old data
@@ -25,8 +25,11 @@ class SeasonalRepository {
      */
     suspend fun refreshData() {
         withContext(Dispatchers.IO) {
-            val data = JikanNetwork.service.getCurrentSeasonAsync()
-            seasonalAnime = data
+            val seasonalData = JikanNetwork.service.getCurrentSeason()
+            val upcomingData = JikanNetwork.service.getTopUpcoming()
+
+            seasonalAnime = seasonalData
+            upcomingAnime = upcomingData
         }
     }
 }

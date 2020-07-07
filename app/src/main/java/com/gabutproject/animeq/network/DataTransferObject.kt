@@ -42,3 +42,24 @@ data class SeasonalProperty (
     val season_year: Int,
     val anime: List<AnimeProperty>
 )
+
+data class UpcomingAnimeProperty(
+	val mal_id: Int,
+	val rank: Int,
+	val title: String,
+	val url: String,
+	val image_url: String,
+	val type: String,
+	val episodes: Int?,
+	val start_date: String?,
+	val end_date: String?,
+	val members: Int,
+	val score: Int
+)
+
+data class UpcomingProperty(
+	val request_hash: String,
+	val request_cached: Boolean,
+	val request_cache_expiry: Int,
+	val top: List<UpcomingAnimeProperty>
+)

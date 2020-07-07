@@ -6,7 +6,8 @@ import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.gabutproject.animeq.R
-import com.gabutproject.animeq.adapter.SeasonalAnimeAdapter
+import com.gabutproject.animeq.adapter.SeasonalAdapter
+import com.gabutproject.animeq.adapter.UpcomingAdapter
 import com.gabutproject.animeq.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {
@@ -14,7 +15,8 @@ class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
     private val viewModel = MainActivityViewModel()
 
-    private val adapter = SeasonalAnimeAdapter()
+    private val seasonalAdapter = SeasonalAdapter()
+    private val upcomingAdapter = UpcomingAdapter()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -26,14 +28,25 @@ class MainActivity : AppCompatActivity() {
         binding.viewModel = viewModel
         binding.lifecycleOwner = this
 
-        val layoutManager = LinearLayoutManager(
+        val seasonalManager = LinearLayoutManager(
             this,
             LinearLayoutManager.HORIZONTAL,
             false
         )
 
-        binding.seasonalAnimeList.layoutManager = layoutManager
-        binding.seasonalAnimeList.adapter = adapter
+        // seasonal listView
+        binding.seasonalAnimeList.layoutManager = seasonalManager
+        binding.seasonalAnimeList.adapter = seasonalAdapter
+
+        val upcomingManager = LinearLayoutManager(
+            this,
+            LinearLayoutManager.HORIZONTAL,
+            false
+        )
+
+        // upcoming listView
+        binding.upcomingAnimeList.layoutManager = upcomingManager
+        binding.upcomingAnimeList.adapter = upcomingAdapter
 
         updateLiveData()
     }
@@ -41,7 +54,13 @@ class MainActivity : AppCompatActivity() {
     private fun updateLiveData() {
         viewModel.seasonalAnime.observe(this, Observer {
             it?.let {
-                adapter.data = it.anime
+                seasonalAdapter.data = it.anime
+            }
+        })
+
+        viewModel.upcomingAnime.observe(this, Observer {
+            it?.let {
+                upcomingAdapter.data = it.top
             }
         })
     }
