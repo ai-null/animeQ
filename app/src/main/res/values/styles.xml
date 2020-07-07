@@ -5,6 +5,24 @@
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
+
+    </style>
+
+    <style name="sub_headline">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginTop">@dimen/margin</item>
+        <item name="android:textColor">#BF222222</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="horizontal_card_scroll">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:clipToPadding">false</item>
+        <item name="android:fadeScrollbars">true</item>
+        <item name="android:orientation">horizontal</item>
+        <item name="android:padding">@dimen/initial_box_margin</item>
     </style>
 
 </resources>

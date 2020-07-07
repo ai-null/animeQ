@@ -10,24 +10,74 @@
             type="com.gabutproject.animeq.ui.MainActivityViewModel" />
     </data>
 
-    <androidx.constraintlayout.widget.ConstraintLayout
-
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        tools:context=".ui.MainActivity">
+        android:layout_height="match_parent">
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/seasonal_anime_list"
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            android:layout_marginTop="16dp"
-            android:paddingHorizontal="16dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            tools:itemCount="6"
-            tools:listitem="@layout/seasonal_anime_item" />
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            tools:context=".ui.MainActivity">
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
+            <TextView
+                android:id="@+id/headline"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/margin"
+                android:layout_marginTop="@dimen/margin"
+                android:text="@string/discover"
+                android:textColor="#222"
+                android:textSize="36sp"
+                android:textStyle="bold"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/seasonal_headline"
+                style="@style/sub_headline"
+                android:text="@string/top_anime_airing"
+                app:layout_constraintStart_toStartOf="@id/headline"
+                app:layout_constraintTop_toBottomOf="@id/headline" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="@dimen/margin"
+                android:clickable="true"
+                android:focusable="true"
+                android:text="@string/view_all"
+                android:textColor="#536DFE"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@id/seasonal_headline" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/seasonal_anime_list"
+                style="@style/horizontal_card_scroll"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintBottom_toTopOf="@id/upcoming_headline"
+                app:layout_constraintTop_toBottomOf="@id/seasonal_headline"
+                tools:itemCount="1"
+                tools:listitem="@layout/seasonal_anime_item" />
+
+            <TextView
+                android:id="@+id/upcoming_headline"
+                style="@style/sub_headline"
+                android:layout_marginStart="@dimen/margin"
+                android:text="@string/upcoming_anime"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/seasonal_anime_list" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/upcoming_anime_list"
+                style="@style/horizontal_card_scroll"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/upcoming_headline"
+                tools:itemCount="1"
+                tools:listitem="@layout/seasonal_anime_item" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </ScrollView>
 </layout>

@@ -55,10 +55,12 @@ private val retrofit = Retrofit.Builder()
 interface JikanService {
 
     /**
-     * this method returns list of anime in the current season
+     * get all current season anime list
+     *
+     * @return SeasonalProperty list of anime in the current season
      */
     @GET(SEASON)
-    suspend fun getCurrentSeasonAsync(): SeasonalProperty
+    suspend fun getCurrentSeason(): SeasonalProperty
 
     /**
      * this method returns result of search by its title
@@ -72,6 +74,14 @@ interface JikanService {
      */
     @GET(SEARCH)
     suspend fun search(@Query("q") q: String, @Query("page") page: Int = 1)
+
+    /**
+     * get top upcoming anime list
+     *
+     * @return
+     */
+    @GET("$TOP/anime/1/upcoming")
+    suspend fun getTopUpcoming(): UpcomingProperty
 }
 
 object JikanNetwork {
