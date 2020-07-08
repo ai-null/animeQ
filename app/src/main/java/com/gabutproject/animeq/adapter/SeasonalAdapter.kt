@@ -10,7 +10,7 @@ class SeasonalClickListener(val clickListener: (id: Int) -> Unit) {
     fun onClick(property: AnimeProperty) = clickListener(property.mal_id)
 }
 
-class SeasonalAdapter(val clickListener: SeasonalClickListener) :
+class SeasonalAdapter(private val clickListener: SeasonalClickListener) :
     RecyclerView.Adapter<SeasonalAdapter.ItemViewHolder>() {
 
     var data = listOf<AnimeProperty>()

@@ -2,6 +2,7 @@ package com.gabutproject.animeq.ui
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
@@ -10,6 +11,7 @@ import com.gabutproject.animeq.R
 import com.gabutproject.animeq.adapter.SeasonalAdapter
 import com.gabutproject.animeq.adapter.SeasonalClickListener
 import com.gabutproject.animeq.adapter.UpcomingAdapter
+import com.gabutproject.animeq.adapter.UpcomingClickListener
 import com.gabutproject.animeq.databinding.ActivityMainBinding
 import com.gabutproject.animeq.viewmodel.MainActivityViewModel
 
@@ -21,6 +23,7 @@ class MainActivity : AppCompatActivity() {
     private val seasonalAdapter = SeasonalAdapter(SeasonalClickListener { id ->
         Toast.makeText(this, id.toString(), Toast.LENGTH_SHORT).show()
     })
+
     private lateinit var upcomingAdapter: UpcomingAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -61,9 +64,9 @@ class MainActivity : AppCompatActivity() {
             false
         )
 
-        // add application context to get String Resource
-        val application = requireNotNull(this.application)
-        upcomingAdapter = UpcomingAdapter(application)
+        upcomingAdapter = UpcomingAdapter(UpcomingClickListener { id ->
+            Toast.makeText(this, id.toString(), Toast.LENGTH_SHORT).show()
+        })
 
         // upcoming listView
         binding.upcomingAnimeList.layoutManager = upcomingManager

@@ -19,7 +19,7 @@ data class AnimeProperty (
     val url: String,
     val title: String,
     val image_url: String,
-    val synopsis: String,
+    val synopsis: String?,
     val type: String,
     val airing_start: String?,
     val episodes: Int?,

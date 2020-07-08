@@ -1,50 +1,67 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    style="@style/card">
+    xmlns:tools="http://schemas.android.com/tools">
 
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
+    <data>
 
-        <ImageView
-            android:id="@+id/cover_image"
+        <variable
+            name="property"
+            type="com.gabutproject.animeq.network.UpcomingAnimeProperty" />
+
+        <variable
+            name="clickListener"
+            type="com.gabutproject.animeq.adapter.UpcomingClickListener" />
+    </data>
+
+    <androidx.cardview.widget.CardView
+        style="@style/card"
+        android:onClick="@{() -> clickListener.onClick(property)}">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:scaleType="centerCrop"
-            app:layout_constraintBottom_toTopOf="@id/item_title"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            android:layout_height="match_parent">
 
-        <TextView
-            android:id="@+id/item_title"
-            android:layout_width="100dp"
-            android:layout_height="wrap_content"
-            android:maxLines="3"
-            android:padding="@dimen/small_margin"
-            android:text="@{property.title}"
-            android:textAppearance="?attr/textAppearanceHeadline5"
-            android:textSize="@dimen/text_size"
-            app:layout_constraintBottom_toTopOf="@id/item_date"
-            app:layout_constraintEnd_toStartOf="@id/item_date"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="parent"
-            tools:text="Yosuga No Sora Yosuga No Sora Yosuga No Sora" />
+            <ImageView
+                android:id="@+id/cover_image"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:scaleType="centerCrop"
+                app:imageUrl="@{property.image_url}"
+                app:layout_constraintBottom_toTopOf="@id/item_title"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
-        <TextView
-            android:id="@+id/item_date"
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            android:background="#2962FF"
-            android:maxLines="2"
-            android:padding="@dimen/small_margin"
-            android:textColor="#fff"
-            app:layout_constraintBottom_toBottomOf="@id/item_title"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@id/item_title"
-            app:layout_constraintTop_toTopOf="@id/item_title"
-            tools:text="June 2020" />
-    </androidx.constraintlayout.widget.ConstraintLayout>
-</androidx.cardview.widget.CardView>
+            <TextView
+                android:id="@+id/item_title"
+                android:layout_width="100dp"
+                android:layout_height="wrap_content"
+                android:maxLines="3"
+                android:padding="@dimen/small_margin"
+                android:text="@{property.title}"
+                android:textAppearance="?attr/textAppearanceHeadline5"
+                android:textSize="@dimen/text_size"
+                app:layout_constraintBottom_toTopOf="@id/item_date"
+                app:layout_constraintEnd_toStartOf="@id/item_date"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="parent"
+                tools:text="Yosuga No Sora Yosuga No Sora Yosuga No Sora" />
+
+            <TextView
+                android:id="@+id/item_date"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:background="#2962FF"
+                android:maxLines="2"
+                android:padding="@dimen/small_margin"
+                android:textColor="#fff"
+                app:layout_constraintBottom_toBottomOf="@id/item_title"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@id/item_title"
+                app:layout_constraintTop_toTopOf="@id/item_title"
+                app:startDate="@{property.start_date}"
+                tools:text="June 2020" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.cardview.widget.CardView>
+</layout>

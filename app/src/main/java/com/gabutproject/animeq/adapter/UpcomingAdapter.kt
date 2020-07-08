@@ -1,18 +1,16 @@
 package com.gabutproject.animeq.adapter
 
-import android.app.Application
 import com.gabutproject.animeq.network.UpcomingAnimeProperty
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageView
-import android.widget.TextView
-import androidx.annotation.LayoutRes
 import androidx.recyclerview.widget.RecyclerView
-import com.gabutproject.animeq.R
-import com.gabutproject.animeq.util.imageUrl
+import com.gabutproject.animeq.databinding.CardDateItemBinding
 
-class UpcomingAdapter constructor(private val application: Application) :
+class UpcomingClickListener(val clickListener: (id: Int) -> Unit) {
+    fun onClick(property: UpcomingAnimeProperty) = clickListener(property.mal_id)
+}
+
+class UpcomingAdapter constructor(private val clickListener: UpcomingClickListener) :
     RecyclerView.Adapter<UpcomingAdapter.ItemViewHolder>() {
 
     var data = listOf<UpcomingAnimeProperty>()
@@ -23,10 +21,7 @@ class UpcomingAdapter constructor(private val application: Application) :
         }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ItemViewHolder {
-        val layoutInflater = LayoutInflater.from(parent.context)
-        val view = layoutInflater.inflate(ItemViewHolder.LAYOUT, parent, false)
-
-        return ItemViewHolder(view)
+        return ItemViewHolder.from(parent)
     }
 
     override fun getItemCount() = data.size
@@ -34,21 +29,27 @@ class UpcomingAdapter constructor(private val application: Application) :
     override fun onBindViewHolder(holder: ItemViewHolder, position: Int) {
         val item = data[position]
 
-        holder.coverImage.imageUrl(item.image_url)
-        holder.title.text = item.title
-        holder.date.text = item.start_date ?: application.getString(R.string.to_be_announced)
+        holder.bind(item, clickListener)
     }
 
-    class ItemViewHolder constructor(binding: View) :
-        RecyclerView.ViewHolder(binding) {
+    class ItemViewHolder constructor(private val binding: CardDateItemBinding) :
+        RecyclerView.ViewHolder(binding.root) {
 
-        val title: TextView = binding.findViewById(R.id.item_title)
-        val date: TextView = binding.findViewById(R.id.item_date)
-        val coverImage: ImageView = binding.findViewById(R.id.cover_image)
+        fun bind(
+            property: UpcomingAnimeProperty,
+            clickListener: UpcomingClickListener
+        ) {
+            binding.property = property
+            binding.clickListener = clickListener
+        }
 
         companion object {
-            @LayoutRes
-            val LAYOUT = R.layout.card_date_item
+            fun from(parent: ViewGroup): ItemViewHolder {
+                val layoutInflater = LayoutInflater.from(parent.context)
+                val view = CardDateItemBinding.inflate(layoutInflater, parent, false)
+
+                return ItemViewHolder(view)
+            }
         }
     }
 }
