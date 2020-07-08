@@ -4,4 +4,6 @@
     <string name="view_all">View all</string>
     <string name="upcoming_anime">Upcoming anime</string>
     <string name="discover">Discover</string>
+
+    <string name="to_be_announced">TBA</string>
 </resources>

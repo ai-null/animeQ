@@ -16,7 +16,7 @@ class MainActivity : AppCompatActivity() {
     private val viewModel = MainActivityViewModel()
 
     private val seasonalAdapter = SeasonalAdapter()
-    private val upcomingAdapter = UpcomingAdapter()
+    private lateinit var upcomingAdapter: UpcomingAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -28,6 +28,15 @@ class MainActivity : AppCompatActivity() {
         binding.viewModel = viewModel
         binding.lifecycleOwner = this
 
+        // calling heavy components
+        initSeasonalList()
+        initUpcomingList()
+
+        // live data handler
+        updateLiveData()
+    }
+
+    private fun initSeasonalList() {
         val seasonalManager = LinearLayoutManager(
             this,
             LinearLayoutManager.HORIZONTAL,
@@ -37,18 +46,23 @@ class MainActivity : AppCompatActivity() {
         // seasonal listView
         binding.seasonalAnimeList.layoutManager = seasonalManager
         binding.seasonalAnimeList.adapter = seasonalAdapter
+    }
 
+    private fun initUpcomingList() {
+        // define adapter
         val upcomingManager = LinearLayoutManager(
             this,
             LinearLayoutManager.HORIZONTAL,
             false
         )
 
+        // add application context to get String Resource
+        val application = requireNotNull(this.application)
+        upcomingAdapter = UpcomingAdapter(application)
+
         // upcoming listView
         binding.upcomingAnimeList.layoutManager = upcomingManager
         binding.upcomingAnimeList.adapter = upcomingAdapter
-
-        updateLiveData()
     }
 
     private fun updateLiveData() {
