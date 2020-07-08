@@ -9,6 +9,7 @@ import com.gabutproject.animeq.R
 import com.gabutproject.animeq.adapter.SeasonalAdapter
 import com.gabutproject.animeq.adapter.UpcomingAdapter
 import com.gabutproject.animeq.databinding.ActivityMainBinding
+import com.gabutproject.animeq.viewmodel.MainActivityViewModel
 
 class MainActivity : AppCompatActivity() {
 

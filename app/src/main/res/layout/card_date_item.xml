@@ -2,8 +2,7 @@
 <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    style="@style/card"
-    android:layout_height="225dp">
+    style="@style/card">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
@@ -21,31 +20,31 @@
 
         <TextView
             android:id="@+id/item_title"
-            android:layout_width="match_parent"
+            android:layout_width="100dp"
             android:layout_height="wrap_content"
-            android:maxLines="2"
+            android:maxLines="3"
             android:padding="@dimen/small_margin"
             android:text="@{property.title}"
             android:textAppearance="?attr/textAppearanceHeadline5"
             android:textSize="@dimen/text_size"
             app:layout_constraintBottom_toTopOf="@id/item_date"
-            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/item_date"
             app:layout_constraintStart_toStartOf="parent"
-            android:textStyle="bold"
-            app:layout_constraintTop_toBottomOf="@id/cover_image"
+            app:layout_constraintTop_toBottomOf="parent"
             tools:text="Yosuga No Sora Yosuga No Sora Yosuga No Sora" />
 
         <TextView
             android:id="@+id/item_date"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:padding="@dimen/small_margin"
-            app:layout_constraintBottom_toBottomOf="parent"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
             android:background="#2962FF"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
+            android:maxLines="2"
+            android:padding="@dimen/small_margin"
             android:textColor="#fff"
-            app:layout_constraintTop_toBottomOf="@id/item_title"
-            tools:text="June 22" />
+            app:layout_constraintBottom_toBottomOf="@id/item_title"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/item_title"
+            app:layout_constraintTop_toTopOf="@id/item_title"
+            tools:text="June 2020" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.cardview.widget.CardView>

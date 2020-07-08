@@ -1,4 +1,4 @@
-package com.gabutproject.animeq.ui
+package com.gabutproject.animeq.viewmodel
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -35,5 +35,12 @@ class MainActivityViewModel : ViewModel() {
             _seasonalAnime.value = jikanRepository.seasonalAnime
             _upcomingAnime.value = jikanRepository.upcomingAnime
         }
+    }
+
+    private val _navigateToDetail = MutableLiveData<Boolean>(false)
+    val navigateToDetail: LiveData<Boolean> get() = _navigateToDetail
+
+    fun onItemClicked() {
+        _navigateToDetail.value = true
     }
 }
