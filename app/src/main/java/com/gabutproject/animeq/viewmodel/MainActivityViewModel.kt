@@ -37,10 +37,14 @@ class MainActivityViewModel : ViewModel() {
         }
     }
 
-    private val _navigateToDetail = MutableLiveData<Boolean>(false)
-    val navigateToDetail: LiveData<Boolean> get() = _navigateToDetail
+    private val _navigateToDetail = MutableLiveData<Int>()
+    val navigateToDetail: LiveData<Int> get() = _navigateToDetail
 
-    fun onItemClicked() {
-        _navigateToDetail.value = true
+    fun onItemClick(id: Int) {
+        _navigateToDetail.value = id
+    }
+
+    fun navigateComplete() {
+        _navigateToDetail.value = null
     }
 }

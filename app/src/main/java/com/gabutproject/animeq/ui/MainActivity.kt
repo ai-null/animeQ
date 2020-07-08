@@ -2,11 +2,13 @@ package com.gabutproject.animeq.ui
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.gabutproject.animeq.R
 import com.gabutproject.animeq.adapter.SeasonalAdapter
+import com.gabutproject.animeq.adapter.SeasonalClickListener
 import com.gabutproject.animeq.adapter.UpcomingAdapter
 import com.gabutproject.animeq.databinding.ActivityMainBinding
 import com.gabutproject.animeq.viewmodel.MainActivityViewModel
@@ -16,7 +18,9 @@ class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
     private val viewModel = MainActivityViewModel()
 
-    private val seasonalAdapter = SeasonalAdapter()
+    private val seasonalAdapter = SeasonalAdapter(SeasonalClickListener { id ->
+        Toast.makeText(this, id.toString(), Toast.LENGTH_SHORT).show()
+    })
     private lateinit var upcomingAdapter: UpcomingAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
