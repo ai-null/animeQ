@@ -13,12 +13,12 @@ import com.gabutproject.animeq.adapter.SeasonalClickListener
 import com.gabutproject.animeq.adapter.UpcomingAdapter
 import com.gabutproject.animeq.adapter.UpcomingClickListener
 import com.gabutproject.animeq.databinding.ActivityMainBinding
-import com.gabutproject.animeq.viewmodel.MainActivityViewModel
+import com.gabutproject.animeq.viewmodel.MainViewModel
 
 class MainActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityMainBinding
-    private val viewModel = MainActivityViewModel()
+    private val viewModel = MainViewModel()
 
     private val seasonalAdapter = SeasonalAdapter(SeasonalClickListener { id ->
         // Toast.makeText(this, id.toString(), Toast.LENGTH_SHORT).show()
@@ -81,7 +81,7 @@ class MainActivity : AppCompatActivity() {
     private fun updateLiveData() {
         viewModel.seasonalAnime.observe(this, Observer {
             it?.let {
-                seasonalAdapter.data = it.seasonalAnimes
+                seasonalAdapter.data = it.anime
             }
         })
 

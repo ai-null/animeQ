@@ -7,7 +7,7 @@
 
         <variable
             name="viewModel"
-            type="com.gabutproject.animeq.viewmodel.MainActivityViewModel" />
+            type="com.gabutproject.animeq.viewmodel.MainViewModel" />
     </data>
 
     <ScrollView

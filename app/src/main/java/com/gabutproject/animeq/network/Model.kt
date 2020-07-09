@@ -54,7 +54,7 @@ data class SeasonalProperty(
     val request_cache_expiry: Int,
     val season_name: String,
     val season_year: Int,
-    val seasonalAnimes: List<SeasonalAnimeProperty>
+    val anime: List<SeasonalAnimeProperty>
 )
 
 data class UpcomingAnimeProperty(
@@ -86,15 +86,15 @@ data class RelatedPropery(
 )
 
 data class Related(
-    val Adaptation: RelatedPropery,
-    val Prequel: RelatedPropery,
-    val Sequel: RelatedPropery
+    val Adaptation: List<RelatedPropery> = emptyList<RelatedPropery>(),
+    val Sequel: List<RelatedPropery> = emptyList<RelatedPropery>(),
+    val Prequel: List<RelatedPropery> = emptyList<RelatedPropery>()
 )
 
 data class AiredDate(
-    val day: Int,
-    val month: Int,
-    val year: Int
+    val day: Int?,
+    val month: Int?,
+    val year: Int?
 )
 
 data class AiredProperty(
@@ -129,8 +129,8 @@ data class AnimeProperty(
     val aired: Aired,
     val duration: String,
     val rating: String,
-    val score: Float,
-    val scored_by: Int,
+    val score: Float?,
+    val scored_by: Int?,
     val rank: Int?,
     val popularity: Int,
     val members: Int,

@@ -8,7 +8,7 @@ import com.gabutproject.animeq.network.UpcomingProperty
 import com.gabutproject.animeq.repository.JikanRepository
 import kotlinx.coroutines.*
 
-class MainActivityViewModel : ViewModel() {
+class MainViewModel : ViewModel() {
     // used for make an http request to seasonal-anime-related
     private val jikanRepository = JikanRepository()
 

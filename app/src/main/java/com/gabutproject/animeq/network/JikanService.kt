@@ -89,7 +89,7 @@ interface JikanService {
     /**
      * get detailed information of provided mal_id
      */
-    @GET(ANIME)
+    @GET("$ANIME/{mal_id}")
     suspend fun getDetailAnime(@Path("mal_id") mal_id: Int): AnimeProperty
 }
 
