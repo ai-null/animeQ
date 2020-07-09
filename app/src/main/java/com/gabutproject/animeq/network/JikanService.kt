@@ -5,6 +5,7 @@ import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
 import retrofit2.Retrofit
 import retrofit2.converter.moshi.MoshiConverterFactory
 import retrofit2.http.GET
+import retrofit2.http.Path
 import retrofit2.http.Query
 
 const val BASE_URL: String = "https://api.jikan.moe/v3/"
@@ -39,6 +40,8 @@ const val SEARCH: String = "search"
  * @param /anime/1/ova - get top ova anime
  */
 const val TOP: String = "top"
+
+const val ANIME: String = "anime"
 
 // add moshi to convert kotlin adapter into java object
 // since data class not working so well with bare retrofit
@@ -78,10 +81,16 @@ interface JikanService {
     /**
      * get top upcoming anime list
      *
-     * @return
+     * @return UpcomingProperty
      */
     @GET("$TOP/anime/1/upcoming")
     suspend fun getTopUpcoming(): UpcomingProperty
+
+    /**
+     * get detailed information of provided mal_id
+     */
+    @GET(ANIME)
+    suspend fun getDetailAnime(@Path("mal_id") mal_id: Int): AnimeProperty
 }
 
 object JikanNetwork {

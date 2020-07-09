@@ -1,5 +1,6 @@
 package com.gabutproject.animeq.repository
 
+import com.gabutproject.animeq.network.AnimeProperty
 import com.gabutproject.animeq.network.JikanNetwork
 import com.gabutproject.animeq.network.SeasonalProperty
 import com.gabutproject.animeq.network.UpcomingProperty
@@ -15,9 +16,9 @@ import kotlinx.coroutines.withContext
  */
 class JikanRepository {
 
-    // getter property of seasonalAnime
     lateinit var seasonalAnime: SeasonalProperty
     lateinit var upcomingAnime: UpcomingProperty
+    lateinit var anime: AnimeProperty
 
     /**
      * Refresh data from the network and replace the old data
@@ -30,6 +31,18 @@ class JikanRepository {
 
             seasonalAnime = seasonalData
             upcomingAnime = upcomingData
+        }
+    }
+
+    /**
+     * Get detailed information of provided animeId.
+     * use this method on detail page only
+     */
+    suspend fun getAnimeDetail(mal_id: Int) {
+        withContext(Dispatchers.IO) {
+            val animeDetail = JikanNetwork.service.getDetailAnime(mal_id)
+
+            anime = animeDetail
         }
     }
 }

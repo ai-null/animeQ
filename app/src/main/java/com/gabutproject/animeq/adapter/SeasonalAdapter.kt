@@ -4,16 +4,16 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.gabutproject.animeq.databinding.SeasonalAnimeItemBinding
-import com.gabutproject.animeq.network.AnimeProperty
+import com.gabutproject.animeq.network.SeasonalAnimeProperty
 
 class SeasonalClickListener(val clickListener: (id: Int) -> Unit) {
-    fun onClick(property: AnimeProperty) = clickListener(property.mal_id)
+    fun onClick(propertySeasonal: SeasonalAnimeProperty) = clickListener(propertySeasonal.mal_id)
 }
 
 class SeasonalAdapter(private val clickListener: SeasonalClickListener) :
     RecyclerView.Adapter<SeasonalAdapter.ItemViewHolder>() {
 
-    var data = listOf<AnimeProperty>()
+    var data = listOf<SeasonalAnimeProperty>()
         set(value) {
             field = value
 
@@ -35,8 +35,11 @@ class SeasonalAdapter(private val clickListener: SeasonalClickListener) :
     class ItemViewHolder constructor(private val binding: SeasonalAnimeItemBinding) :
         RecyclerView.ViewHolder(binding.root) {
 
-        fun bind(property: AnimeProperty, clickListener: SeasonalClickListener) {
-            binding.property = property
+        fun bind(
+            propertySeasonal: SeasonalAnimeProperty,
+            clickListener: SeasonalClickListener
+        ) {
+            binding.property = propertySeasonal
             binding.clickListener = clickListener
         }
 

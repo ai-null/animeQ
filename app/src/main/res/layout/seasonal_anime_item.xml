@@ -7,7 +7,7 @@
 
         <variable
             name="property"
-            type="com.gabutproject.animeq.network.AnimeProperty" />
+            type="com.gabutproject.animeq.network.SeasonalAnimeProperty" />
 
         <variable
             name="clickListener"

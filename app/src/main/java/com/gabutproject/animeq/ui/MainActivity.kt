@@ -1,8 +1,8 @@
 package com.gabutproject.animeq.ui
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
 import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
@@ -21,7 +21,10 @@ class MainActivity : AppCompatActivity() {
     private val viewModel = MainActivityViewModel()
 
     private val seasonalAdapter = SeasonalAdapter(SeasonalClickListener { id ->
-        Toast.makeText(this, id.toString(), Toast.LENGTH_SHORT).show()
+        // Toast.makeText(this, id.toString(), Toast.LENGTH_SHORT).show()
+        val intent = Intent(this, DetailActivity::class.java)
+
+        startActivity(intent.putExtra("mal_id", id))
     })
 
     private lateinit var upcomingAdapter: UpcomingAdapter
@@ -64,6 +67,8 @@ class MainActivity : AppCompatActivity() {
             false
         )
 
+        // i forgot why i lateInit upcomingAdapter here. Somehow, it worked,
+        // TODO: refactor and find why it's must be lateinit
         upcomingAdapter = UpcomingAdapter(UpcomingClickListener { id ->
             Toast.makeText(this, id.toString(), Toast.LENGTH_SHORT).show()
         })
@@ -76,7 +81,7 @@ class MainActivity : AppCompatActivity() {
     private fun updateLiveData() {
         viewModel.seasonalAnime.observe(this, Observer {
             it?.let {
-                seasonalAdapter.data = it.anime
+                seasonalAdapter.data = it.seasonalAnimes
             }
         })
 
