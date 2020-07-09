@@ -16,6 +16,9 @@
 
     <androidx.cardview.widget.CardView
         style="@style/card"
+        android:clickable="true"
+        android:focusable="true"
+        android:layout_height="235dp"
         android:onClick="@{() -> clickListener.onClick(property)}">
 
         <androidx.constraintlayout.widget.ConstraintLayout
@@ -35,31 +38,30 @@
 
             <TextView
                 android:id="@+id/item_title"
-                android:layout_width="100dp"
-                android:layout_height="wrap_content"
-                android:maxLines="3"
+                android:layout_width="0dp"
+                android:layout_height="50dp"
+                android:maxLines="2"
                 android:padding="@dimen/small_margin"
                 android:text="@{property.title}"
                 android:textAppearance="?attr/textAppearanceHeadline5"
                 android:textSize="@dimen/text_size"
+                android:textStyle="bold"
                 app:layout_constraintBottom_toTopOf="@id/item_date"
-                app:layout_constraintEnd_toStartOf="@id/item_date"
+                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/cover_image"
                 tools:text="Yosuga No Sora Yosuga No Sora Yosuga No Sora" />
 
             <TextView
                 android:id="@+id/item_date"
                 android:layout_width="0dp"
-                android:layout_height="0dp"
-                android:background="#2962FF"
+                android:layout_height="35dp"
                 android:maxLines="2"
                 android:padding="@dimen/small_margin"
-                android:textColor="#fff"
-                app:layout_constraintBottom_toBottomOf="@id/item_title"
+                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toEndOf="@id/item_title"
-                app:layout_constraintTop_toTopOf="@id/item_title"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/item_title"
                 app:startDate="@{property.start_date}"
                 tools:text="June 2020" />
         </androidx.constraintlayout.widget.ConstraintLayout>
