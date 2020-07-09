@@ -18,16 +18,24 @@ class MainViewModel : ViewModel() {
     // uiScope to run method on main-thread, don't make a call inside main thread
     private val uiScope = CoroutineScope(job + Dispatchers.Main)
 
+    // put setter and getter below
     private val _seasonalAnime = MutableLiveData<SeasonalProperty>()
-    val seasonalAnime: LiveData<SeasonalProperty> get() = _seasonalAnime
-
     private val _upcomingAnime = MutableLiveData<UpcomingProperty>()
+    private val _navigateToDetail = MutableLiveData<Int>()
+
+    val seasonalAnime: LiveData<SeasonalProperty> get() = _seasonalAnime
     val upcomingAnime: LiveData<UpcomingProperty> get() = _upcomingAnime
+    val navigateToDetail: LiveData<Int> get() = _navigateToDetail
 
     init {
         refreshDataFromRepository()
     }
 
+    /**
+     * get & refresh data, used for initial call or pull-to-refresh
+     * to get the new data.
+     * TODO: implement pull-to-refresh
+     */
     private fun refreshDataFromRepository() {
         uiScope.launch {
             jikanRepository.refreshData()
@@ -37,10 +45,7 @@ class MainViewModel : ViewModel() {
         }
     }
 
-    private val _navigateToDetail = MutableLiveData<Int>()
-    val navigateToDetail: LiveData<Int> get() = _navigateToDetail
-
-    fun onItemClick(id: Int) {
+    fun onNavigateToDetail(id: Int) {
         _navigateToDetail.value = id
     }
 

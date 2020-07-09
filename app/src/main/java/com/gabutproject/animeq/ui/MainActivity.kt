@@ -16,18 +16,12 @@ import com.gabutproject.animeq.databinding.ActivityMainBinding
 import com.gabutproject.animeq.viewmodel.MainViewModel
 
 class MainActivity : AppCompatActivity() {
-
+    // TODO: cleanup this activity
     private lateinit var binding: ActivityMainBinding
     private val viewModel = MainViewModel()
 
-    private val seasonalAdapter = SeasonalAdapter(SeasonalClickListener { id ->
-        // Toast.makeText(this, id.toString(), Toast.LENGTH_SHORT).show()
-        val intent = Intent(this, DetailActivity::class.java)
-
-        startActivity(intent.putExtra("mal_id", id))
-    })
-
     private lateinit var upcomingAdapter: UpcomingAdapter
+    private lateinit var seasonalAdapter: SeasonalAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -54,23 +48,25 @@ class MainActivity : AppCompatActivity() {
             false
         )
 
+        seasonalAdapter = SeasonalAdapter(SeasonalClickListener { id ->
+            viewModel.onNavigateToDetail(id)
+        })
+
         // seasonal listView
         binding.seasonalAnimeList.layoutManager = seasonalManager
         binding.seasonalAnimeList.adapter = seasonalAdapter
     }
 
     private fun initUpcomingList() {
-        // define adapter
         val upcomingManager = LinearLayoutManager(
             this,
             LinearLayoutManager.HORIZONTAL,
             false
         )
 
-        // i forgot why i lateInit upcomingAdapter here. Somehow, it worked,
         // TODO: refactor and find why it's must be lateinit
         upcomingAdapter = UpcomingAdapter(UpcomingClickListener { id ->
-            Toast.makeText(this, id.toString(), Toast.LENGTH_SHORT).show()
+            viewModel.onNavigateToDetail(id)
         })
 
         // upcoming listView
@@ -78,6 +74,10 @@ class MainActivity : AppCompatActivity() {
         binding.upcomingAnimeList.adapter = upcomingAdapter
     }
 
+    /**
+     * live data handler
+     * all setter observer must be put here
+     */
     private fun updateLiveData() {
         viewModel.seasonalAnime.observe(this, Observer {
             it?.let {
@@ -88,6 +88,19 @@ class MainActivity : AppCompatActivity() {
         viewModel.upcomingAnime.observe(this, Observer {
             it?.let {
                 upcomingAdapter.data = it.top
+            }
+        })
+
+        viewModel.navigateToDetail.observe(this, Observer { id ->
+            id?.let {
+                startActivity(
+                    Intent(
+                        this,
+                        DetailActivity::class.java
+                    ).putExtra("mal_id", id)
+                )
+
+                viewModel.navigateComplete()
             }
         })
     }

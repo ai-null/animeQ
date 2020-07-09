@@ -86,9 +86,9 @@ data class RelatedPropery(
 )
 
 data class Related(
-    val Adaptation: List<RelatedPropery> = emptyList<RelatedPropery>(),
-    val Sequel: List<RelatedPropery> = emptyList<RelatedPropery>(),
-    val Prequel: List<RelatedPropery> = emptyList<RelatedPropery>()
+    val Adaptation: List<RelatedPropery> = emptyList(),
+    val Sequel: List<RelatedPropery> = emptyList(),
+    val Prequel: List<RelatedPropery> = emptyList()
 )
 
 data class AiredDate(
@@ -137,8 +137,6 @@ data class AnimeProperty(
     val favorites: Int,
     val synopsis: String,
     val background: String?,
-    val premiered: String,
-    val broadcast: String,
     val related: Related,
     val producers: List<Producer>,
     val licensors: List<Licensor>,
