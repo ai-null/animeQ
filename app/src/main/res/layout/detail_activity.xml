@@ -70,27 +70,99 @@
 
             <TextView
                 android:id="@+id/studio_text"
-                android:layout_width="0dp"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@{property.studios[0].name}"
                 app:layout_constraintBottom_toBottomOf="@id/poster_card"
-                app:layout_constraintEnd_toStartOf="@id/rating_text"
+                app:layout_constraintEnd_toStartOf="@id/score_text"
                 app:layout_constraintStart_toStartOf="@id/title_text"
                 app:layout_constraintTop_toBottomOf="@+id/title_text"
-                app:layout_constraintVertical_bias="1"
                 tools:text="DEEN" />
 
             <TextView
-                android:id="@+id/rating_text"
-                android:layout_width="wrap_content"
+                android:id="@+id/score_text"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/margin"
+                android:layout_marginStart="@dimen/small_margin"
                 android:text="@{property.score.toString()}"
                 app:layout_constraintBottom_toBottomOf="@id/poster_card"
                 app:layout_constraintEnd_toEndOf="@id/title_text"
                 app:layout_constraintStart_toEndOf="@id/studio_text"
                 app:layout_constraintTop_toTopOf="@id/studio_text"
                 tools:text="8.4" />
+
+            <TextView
+                android:id="@+id/description_text"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="@dimen/margin"
+                android:layout_marginTop="@dimen/margin"
+                android:maxLines="8"
+                android:text="@{property.synopsis}"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/poster_card"
+                tools:text="@tools:sample/lorem/random" />
+
+            <TextView
+                android:id="@+id/status_headline"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/margin"
+                android:layout_marginTop="@dimen/margin"
+                android:text="@string/status"
+                android:textStyle="bold"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/description_text" />
+
+            <TextView
+                android:id="@+id/status_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="@dimen/small_margin"
+                android:singleLine="true"
+                app:layout_constraintStart_toEndOf="@id/status_headline"
+                app:layout_constraintTop_toTopOf="@id/status_headline"
+                app:status="@{property.airing}"
+                tools:text="Aired" />
+
+            <TextView
+                android:id="@+id/source_headline"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/margin"
+                android:text="@string/source"
+                android:textStyle="bold"
+                app:layout_constraintStart_toEndOf="@id/status_text"
+                app:layout_constraintTop_toTopOf="@id/status_text" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/small_margin"
+                android:text="@{property.source}"
+                app:layout_constraintStart_toEndOf="@id/source_headline"
+                app:layout_constraintTop_toTopOf="@id/source_headline"
+                tools:text="Light Novel" />
+
+            <TextView
+                android:id="@+id/rating_headline"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/small_margin"
+                android:text="@string/rating"
+                android:textStyle="bold"
+                app:layout_constraintStart_toStartOf="@id/status_headline"
+                app:layout_constraintTop_toBottomOf="@id/status_headline" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/small_margin"
+                android:text="@{property.rating}"
+                app:layout_constraintStart_toEndOf="@id/rating_headline"
+                app:layout_constraintTop_toTopOf="@id/rating_headline"
+                tools:text="17+ Violence" />
         </androidx.constraintlayout.widget.ConstraintLayout>
     </ScrollView>
 </layout>

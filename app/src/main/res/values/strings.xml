@@ -5,6 +5,7 @@
     <string name="upcoming_anime">Upcoming anime</string>
     <string name="discover">Discover</string>
 
+    <string name="aired">Aired</string>
     <string name="to_be_announced">TBA</string>
 
 
@@ -13,4 +14,7 @@
         Yosuga no sora Yosuga no sora
         Yosuga no sora
     </string>
+    <string name="status">Status</string>
+    <string name="source">Source</string>
+    <string name="rating">Rating</string>
 </resources>

@@ -31,3 +31,12 @@ fun ImageView.imageUrl(imageUrl: String?) {
 fun TextView.startDate(date: String?) {
     text = date ?: context.getString(R.string.to_be_announced)
 }
+
+@BindingAdapter("status")
+fun TextView.status(status: Boolean) {
+    text = if (status) {
+        context.getString(R.string.aired)
+    } else {
+        context.getString(R.string.to_be_announced)
+    }
+}
