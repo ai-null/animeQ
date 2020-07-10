@@ -1,8 +1,14 @@
 package com.gabutproject.animeq.ui
 
+import android.app.SearchManager
+import android.content.Context
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.LayoutInflater
+import android.view.Menu
+import android.view.MenuItem
+import android.widget.SearchView
 import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
@@ -41,6 +47,10 @@ class MainActivity : AppCompatActivity() {
         updateLiveData()
     }
 
+    /**
+     * Init seasonal anime list
+     * TODO: put all init to loading screen
+     */
     private fun initSeasonalList() {
         val seasonalManager = LinearLayoutManager(
             this,
@@ -57,6 +67,9 @@ class MainActivity : AppCompatActivity() {
         binding.seasonalAnimeList.adapter = seasonalAdapter
     }
 
+    /**
+     * init upcoming anime list
+     */
     private fun initUpcomingList() {
         val upcomingManager = LinearLayoutManager(
             this,
@@ -103,5 +116,21 @@ class MainActivity : AppCompatActivity() {
                 viewModel.navigateComplete()
             }
         })
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        menuInflater.inflate(R.menu.search_item, menu)
+
+        return true
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        return when (item.itemId) {
+            R.id.search -> {
+                startActivity(Intent(this, SearchActivity::class.java))
+                true
+            }
+            else -> true
+        }
     }
 }

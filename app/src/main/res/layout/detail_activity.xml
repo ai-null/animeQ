@@ -20,6 +20,8 @@
             android:paddingBottom="@dimen/margin"
             tools:context=".ui.DetailActivity">
 
+            <!-- TODO: make cover background has blurry effect -->
+            <!-- TODO: implement related cards-->
             <ImageView
                 android:id="@+id/background_cover_image"
                 android:layout_width="match_parent"

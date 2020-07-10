@@ -10,20 +10,22 @@ import com.gabutproject.animeq.viewmodel.DetailViewModel
 
 class DetailActivity : AppCompatActivity() {
 
-    private lateinit var viewModel: DetailViewModel
-
     private lateinit var binding: DetailActivityBinding
+    private lateinit var viewModel: DetailViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        // set content view
         binding = DataBindingUtil.setContentView(this, R.layout.detail_activity)
+
+        // set lifeCycleOwner so the activity can observe data change
         binding.lifecycleOwner = this
 
-
+        // null-safety - check if the data is ready or not
+        // mal_id should be ready the moment detail activity accessed. this is for safety
         if (intent.hasExtra("mal_id")) {
-            val data: Int = intent.extras!!.getInt("mal_id")
+            viewModel = DetailViewModel(intent.extras!!.getInt("mal_id"))
 
-            viewModel = DetailViewModel(data)
             updateLiveData()
         }
     }
@@ -32,6 +34,7 @@ class DetailActivity : AppCompatActivity() {
         viewModel.animeProperty.observe(this, Observer {
             it?.let {
                 binding.property = it
+                title = it.title
             }
         })
     }

@@ -8,7 +8,7 @@
     <string name="aired">Aired</string>
     <string name="to_be_announced">TBA</string>
 
-
+    <string name="hint">Yosuga no sora</string>
     <string name="dummy_3lines_title">
         Yosuga no sora Yosuga no sora
         Yosuga no sora Yosuga no sora
@@ -17,4 +17,5 @@
     <string name="status">Status</string>
     <string name="source">Source</string>
     <string name="rating">Rating</string>
+    <string name="search_title">Search title</string>
 </resources>

@@ -45,4 +45,10 @@ class JikanRepository {
             anime = animeDetail
         }
     }
+
+    suspend fun Search(key: String) {
+        withContext(Dispatchers.IO) {
+
+        }
+    }
 }

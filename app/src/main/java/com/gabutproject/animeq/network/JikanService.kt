@@ -60,7 +60,7 @@ interface JikanService {
     /**
      * get all current season anime list
      *
-     * @return SeasonalProperty list of anime in the current season
+     * @return <SeasonalProperty>
      */
     @GET(SEASON)
     suspend fun getCurrentSeason(): SeasonalProperty
@@ -68,26 +68,33 @@ interface JikanService {
     /**
      * this method returns result of search by its title
      *
-     * @query q String
+     * @param q String
      *  anime title
-     *
-     * @query page Int
+     * @param page Int
      *  page of result, since there's possibility of similar title,
      *  the result is grouped by page
+     *
+     * @return <SearchProperty>
      */
-    @GET(SEARCH)
-    suspend fun search(@Query("q") q: String, @Query("page") page: Int = 1)
+    @GET("$SEARCH/anime")
+    suspend fun search(
+        @Query("q") q: String,
+        @Query("page") page: Int = 1
+    ): SearchProperty
 
     /**
      * get top upcoming anime list
      *
-     * @return UpcomingProperty
+     * @return <UpcomingProperty>
      */
     @GET("$TOP/anime/1/upcoming")
     suspend fun getTopUpcoming(): UpcomingProperty
 
     /**
      * get detailed information of provided mal_id
+     *
+     * @param mal_id Int
+     * @return <AnimeProperty>
      */
     @GET("$ANIME/{mal_id}")
     suspend fun getDetailAnime(@Path("mal_id") mal_id: Int): AnimeProperty

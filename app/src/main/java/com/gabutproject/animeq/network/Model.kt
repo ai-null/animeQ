@@ -145,3 +145,24 @@ data class AnimeProperty(
     val opening_themes: List<String>,
     val ending_themes: List<String>
 )
+
+data class Result(
+	val mal_id: Int,
+	val url: String,
+	val image_url: String,
+	val title: String,
+	val airing: Boolean,
+	val synopsis: String,
+	val type: String,
+	val episodes: Int,
+	val score: Double,
+	val start_date: String?,
+	val end_date: String?,
+	val members: Int,
+	val rated: String
+)
+
+data class SearchProperty(
+	val results: List<Result>,
+	val last_page: Int
+)
