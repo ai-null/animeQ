@@ -129,7 +129,7 @@ data class AnimeProperty(
     val aired: Aired,
     val duration: String,
     val rating: String,
-    val score: Float?,
+    val score: Double?,
     val scored_by: Int?,
     val rank: Int?,
     val popularity: Int,

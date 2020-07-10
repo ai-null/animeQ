@@ -17,19 +17,20 @@
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:paddingBottom="@dimen/margin"
             tools:context=".ui.DetailActivity">
 
             <ImageView
                 android:id="@+id/background_cover_image"
                 android:layout_width="match_parent"
                 android:layout_height="200dp"
-                android:alpha="0.5"
+                android:adjustViewBounds="true"
+                android:background="#BDBDBD"
                 android:scaleType="centerCrop"
                 app:imageUrl="@{property.image_url}"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                tools:background="#BDBDBD" />
+                app:layout_constraintTop_toTopOf="parent" />
 
             <androidx.cardview.widget.CardView
                 android:id="@+id/poster_card"
@@ -44,6 +45,8 @@
                     android:id="@+id/poster_image"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
+                    android:background="#7A7A7A"
+                    android:scaleType="centerCrop"
                     app:imageUrl="@{property.image_url}"
                     tools:background="#7A7A7A" />
             </androidx.cardview.widget.CardView>
@@ -51,13 +54,43 @@
             <TextView
                 android:id="@+id/title_text"
                 style="@style/sub_headline"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_margin="@dimen/margin"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_marginHorizontal="@dimen/margin"
+                android:layout_marginTop="14dp"
+                android:layout_marginBottom="@dimen/margin"
+                android:maxLines="3"
                 android:text="@{property.title}"
+                app:layout_constraintBottom_toTopOf="@id/studio_text"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0"
                 app:layout_constraintStart_toEndOf="@id/poster_card"
                 app:layout_constraintTop_toBottomOf="@id/background_cover_image"
                 tools:text="Yosuga no sora" />
+
+            <TextView
+                android:id="@+id/studio_text"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="@{property.studios[0].name}"
+                app:layout_constraintBottom_toBottomOf="@id/poster_card"
+                app:layout_constraintEnd_toStartOf="@id/rating_text"
+                app:layout_constraintStart_toStartOf="@id/title_text"
+                app:layout_constraintTop_toBottomOf="@+id/title_text"
+                app:layout_constraintVertical_bias="1"
+                tools:text="DEEN" />
+
+            <TextView
+                android:id="@+id/rating_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/margin"
+                android:text="@{property.score.toString()}"
+                app:layout_constraintBottom_toBottomOf="@id/poster_card"
+                app:layout_constraintEnd_toEndOf="@id/title_text"
+                app:layout_constraintStart_toEndOf="@id/studio_text"
+                app:layout_constraintTop_toTopOf="@id/studio_text"
+                tools:text="8.4" />
         </androidx.constraintlayout.widget.ConstraintLayout>
     </ScrollView>
 </layout>
