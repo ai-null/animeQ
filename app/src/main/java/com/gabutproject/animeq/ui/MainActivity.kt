@@ -49,7 +49,7 @@ class MainActivity : AppCompatActivity() {
 
     /**
      * Init seasonal anime list
-     * TODO: put all init to loading screen
+     * TODO: put all initial data fetching to loading screen
      */
     private fun initSeasonalList() {
         val seasonalManager = LinearLayoutManager(

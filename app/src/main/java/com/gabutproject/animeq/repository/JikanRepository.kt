@@ -1,9 +1,6 @@
 package com.gabutproject.animeq.repository
 
-import com.gabutproject.animeq.network.AnimeProperty
-import com.gabutproject.animeq.network.JikanNetwork
-import com.gabutproject.animeq.network.SeasonalProperty
-import com.gabutproject.animeq.network.UpcomingProperty
+import com.gabutproject.animeq.network.*
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 
@@ -19,6 +16,7 @@ class JikanRepository {
     lateinit var seasonalAnime: SeasonalProperty
     lateinit var upcomingAnime: UpcomingProperty
     lateinit var anime: AnimeProperty
+    lateinit var searchResult: SearchProperty
 
     /**
      * Refresh data from the network and replace the old data
@@ -46,9 +44,11 @@ class JikanRepository {
         }
     }
 
-    suspend fun Search(key: String) {
+    suspend fun search(key: String) {
         withContext(Dispatchers.IO) {
+            val result = JikanNetwork.service.search(key)
 
+            searchResult = result
         }
     }
 }

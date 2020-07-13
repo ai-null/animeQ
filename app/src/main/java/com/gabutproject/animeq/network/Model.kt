@@ -159,7 +159,7 @@ data class Result(
 	val start_date: String?,
 	val end_date: String?,
 	val members: Int,
-	val rated: String
+	val rated: String?
 )
 
 data class SearchProperty(
