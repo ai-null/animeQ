@@ -3,6 +3,7 @@ package com.gabutproject.animeq.viewmodel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.gabutproject.animeq.network.SearchProperty
 import com.gabutproject.animeq.network.SeasonalProperty
 import com.gabutproject.animeq.network.UpcomingProperty
 import com.gabutproject.animeq.repository.JikanRepository
@@ -19,13 +20,17 @@ class MainViewModel : ViewModel() {
     private val uiScope = CoroutineScope(job + Dispatchers.Main)
 
     // put setter and getter below
+    // SETTER
     private val _seasonalAnime = MutableLiveData<SeasonalProperty>()
     private val _upcomingAnime = MutableLiveData<UpcomingProperty>()
     private val _navigateToDetail = MutableLiveData<Int>()
+    private val _result = MutableLiveData<SearchProperty>()
 
+    // GETTER
     val seasonalAnime: LiveData<SeasonalProperty> get() = _seasonalAnime
     val upcomingAnime: LiveData<UpcomingProperty> get() = _upcomingAnime
     val navigateToDetail: LiveData<Int> get() = _navigateToDetail
+    val result: LiveData<SearchProperty> get() = _result
 
     init {
         refreshDataFromRepository()
@@ -42,6 +47,20 @@ class MainViewModel : ViewModel() {
 
             _seasonalAnime.value = jikanRepository.seasonalAnime
             _upcomingAnime.value = jikanRepository.upcomingAnime
+        }
+    }
+
+    /**
+     * search anime by title
+     *
+     * @param keyword String
+     *  title you want to look up. the search only works on 3+ letters
+     */
+    fun search(keyword: String = "") {
+        uiScope.launch {
+            jikanRepository.search(keyword)
+
+            _result.value = jikanRepository.searchResult
         }
     }
 

@@ -5,9 +5,7 @@ import android.content.Context
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.view.LayoutInflater
 import android.view.Menu
-import android.view.MenuItem
 import android.widget.SearchView
 import android.widget.Toast
 import androidx.databinding.DataBindingUtil
@@ -104,6 +102,7 @@ class MainActivity : AppCompatActivity() {
             }
         })
 
+        // navigate to detail and pass mal_id to fetch on the detail screen
         viewModel.navigateToDetail.observe(this, Observer { id ->
             id?.let {
                 startActivity(
@@ -116,21 +115,42 @@ class MainActivity : AppCompatActivity() {
                 viewModel.navigateComplete()
             }
         })
+
+        viewModel.result.observe(this, Observer { data ->
+            data?.let {
+                Toast.makeText(this, data.results[0].title, Toast.LENGTH_SHORT).show()
+            }
+        })
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         menuInflater.inflate(R.menu.search_item, menu)
 
+        val searchView = menu!!.findItem(R.id.search_item).actionView as SearchView
+
+        searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
+            override fun onQueryTextSubmit(query: String?): Boolean {
+                if (query != null) viewModel.search(query)
+
+                return true
+            }
+
+            override fun onQueryTextChange(newText: String?): Boolean {
+                return false
+            }
+
+        })
+
         return true
     }
 
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        return when (item.itemId) {
-            R.id.search -> {
-                startActivity(Intent(this, SearchActivity::class.java))
-                true
-            }
-            else -> true
-        }
-    }
+//    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+//        return when (item.itemId) {
+//            R.id.search -> {
+//                startActivity(Intent(this, SearchActivity::class.java))
+//                true
+//            }
+//            else -> true
+//        }
+//    }
 }
