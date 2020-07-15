@@ -1,4 +1,4 @@
-package com.gabutproject.animeq.ui
+package com.gabutproject.animeq.ui.activity
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity

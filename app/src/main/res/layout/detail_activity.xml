@@ -18,7 +18,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:paddingBottom="@dimen/margin"
-            tools:context=".ui.DetailActivity">
+            tools:context=".ui.activity.DetailActivity">
 
             <!-- TODO: make cover background has blurry effect -->
             <!-- TODO: implement related cards-->
