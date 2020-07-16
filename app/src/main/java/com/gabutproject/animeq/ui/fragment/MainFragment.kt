@@ -2,13 +2,13 @@ package com.gabutproject.animeq.ui.fragment
 
 import android.content.Intent
 import android.os.Bundle
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
+import android.view.*
+import android.widget.SearchView
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.gabutproject.animeq.R
 import com.gabutproject.animeq.adapter.SeasonalAdapter
 import com.gabutproject.animeq.adapter.SeasonalClickListener
 import com.gabutproject.animeq.adapter.UpcomingAdapter
@@ -40,6 +40,8 @@ class MainFragment : Fragment() {
         // calling heavy components
         initSeasonalList()
         initUpcomingList()
+
+        setHasOptionsMenu(true)
 
         // live data handler
         updateLiveData()
@@ -123,6 +125,32 @@ class MainFragment : Fragment() {
             data?.let {
                 Toast.makeText(this.context, data.results[0].title, Toast.LENGTH_SHORT).show()
             }
+        })
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        // inflate menu layout to this fragment
+        inflater.inflate(R.menu.search_item, menu)
+        super.onCreateOptionsMenu(menu, inflater)
+
+        // define search view component
+        val searchView = menu.findItem(R.id.search_item).actionView as SearchView
+
+        // set methods to search
+        searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
+
+            // this will executed after user submitted
+            override fun onQueryTextSubmit(query: String?): Boolean {
+                if (query != null) viewModel.search(query)
+
+                return true
+            }
+
+            // this will executed when user typing
+            override fun onQueryTextChange(newText: String?): Boolean {
+                return false
+            }
+
         })
     }
 }
