@@ -4,9 +4,9 @@ import android.content.Intent
 import android.os.Bundle
 import android.view.*
 import android.widget.SearchView
-import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.gabutproject.animeq.R
 import com.gabutproject.animeq.adapter.SeasonalAdapter
@@ -120,14 +120,14 @@ class MainFragment : Fragment() {
                 viewModel.navigateComplete()
             }
         })
-
-        viewModel.result.observe(viewLifecycleOwner, Observer { data ->
-            data?.let {
-                Toast.makeText(this.context, data.results[0].title, Toast.LENGTH_SHORT).show()
-            }
-        })
     }
 
+    /**
+     * options bar creations
+     *
+     * for this screen it only handle search method
+     * like accepting query from user, and let the viewModel handle the rest
+     */
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
         // inflate menu layout to this fragment
         inflater.inflate(R.menu.search_item, menu)
@@ -141,7 +141,11 @@ class MainFragment : Fragment() {
 
             // this will executed after user submitted
             override fun onQueryTextSubmit(query: String?): Boolean {
-                if (query != null) viewModel.search(query)
+                if (query != null) {
+                    findNavController().navigate(
+                        MainFragmentDirections.actionMainFragmentToSearchFragment(query)
+                    )
+                }
 
                 return true
             }
