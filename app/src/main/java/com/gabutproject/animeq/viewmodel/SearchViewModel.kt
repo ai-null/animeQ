@@ -20,8 +20,14 @@ class SearchViewModel: ViewModel() {
     // uiScope to run method on main-thread, don't make a call inside main thread
     private val uiScope = CoroutineScope(job + Dispatchers.Main)
 
+    // getter and setter live data
+    // SETTER
     private val _result = MutableLiveData<SearchProperty>()
+    private val _isLoading = MutableLiveData<Boolean>()
+
+    // GETTER
     val result: LiveData<SearchProperty> get() = _result
+    val isLoading: LiveData<Boolean> get() = _isLoading
 
     /**
      * search anime by title
@@ -31,9 +37,13 @@ class SearchViewModel: ViewModel() {
      */
     fun search(keyword: String = "") {
         uiScope.launch {
+            // begin the search
+            _isLoading.value = true
             jikanRepository.search(keyword)
 
+            // set data to setter method, and update loading state
             _result.value = jikanRepository.searchResult
+            _isLoading.value = false
         }
     }
 }

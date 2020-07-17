@@ -1,19 +1,48 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
 
-    <GridView
-        android:id="@+id/result_list"
+    <data>
+
+        <variable
+            name="viewModel"
+            type="com.gabutproject.animeq.viewmodel.SearchViewModel" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:gravity="center"
-        android:paddingVertical="@dimen/margin"
-        android:clipToPadding="false"
-        android:horizontalSpacing="@dimen/margin"
-        android:numColumns="2"
-        android:stretchMode="columnWidth"
-        android:verticalSpacing="@dimen/margin"
-        tools:listitem="@layout/seasonal_anime_item" />
-</LinearLayout>
+        android:layout_height="match_parent">
+
+        <ProgressBar
+            android:id="@+id/progress"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_gravity="center_horizontal"
+            android:visibility="visible"
+            app:isLoading="@{viewModel.isLoading}"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <GridView
+            android:id="@+id/result_list"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:clipToPadding="false"
+            android:gravity="center"
+            android:horizontalSpacing="@dimen/margin"
+            android:numColumns="2"
+            android:paddingVertical="@dimen/margin"
+            android:stretchMode="columnWidth"
+            android:verticalSpacing="@dimen/margin"
+            android:visibility="invisible"
+            app:isLoading="@{viewModel.isLoading}"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:listitem="@layout/seasonal_anime_item" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>
