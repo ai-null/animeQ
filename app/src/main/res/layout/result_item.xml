@@ -7,16 +7,11 @@
 
         <variable
             name="property"
-            type="com.gabutproject.animeq.network.SeasonalAnimeProperty" />
-
-        <variable
-            name="clickListener"
-            type="com.gabutproject.animeq.adapter.SeasonalClickListener" />
+            type="com.gabutproject.animeq.network.Result" />
     </data>
 
     <androidx.cardview.widget.CardView
-        style="@style/card"
-        android:onClick="@{() -> clickListener.onClick(property)}">
+        style="@style/card">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
