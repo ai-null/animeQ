@@ -42,6 +42,7 @@ class ResultAdapter(val clickListener: ResultClickListener) : BaseAdapter() {
             clickListener: ResultClickListener
         ) {
             binding.property = property
+            binding.clickListener = clickListener
         }
 
         companion object {
