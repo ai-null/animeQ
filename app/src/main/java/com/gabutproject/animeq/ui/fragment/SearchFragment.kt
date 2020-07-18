@@ -2,6 +2,7 @@ package com.gabutproject.animeq.ui.fragment
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -31,6 +32,7 @@ class SearchFragment : Fragment() {
 
         adapter = ResultAdapter(ResultClickListener { id ->
             viewModel.onNavigateToDetail(id)
+            Log.i("mal_id", id.toString())
         })
 
         binding.viewModel = viewModel
@@ -67,8 +69,8 @@ class SearchFragment : Fragment() {
             }
         })
 
-        viewModel.navigateToDetail.observe(viewLifecycleOwner, Observer {
-            it?.let {
+        viewModel.navigateToDetail.observe(viewLifecycleOwner, Observer { id ->
+            id?.let {
                 startActivity(
                     Intent(
                         this.context,
