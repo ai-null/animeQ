@@ -2,6 +2,7 @@ package com.gabutproject.animeq.ui.fragment
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -16,9 +17,7 @@ import com.gabutproject.animeq.viewmodel.SearchViewModel
 class SearchFragment : Fragment() {
 
     private val viewModel = SearchViewModel()
-    private val adapter = ResultAdapter(ResultClickListener { id ->
-        viewModel.onNavigateToDetail(id)
-    })
+    private lateinit var adapter: ResultAdapter
     private lateinit var binding: SearchFragmentBinding
 
     override fun onCreateView(
@@ -30,6 +29,11 @@ class SearchFragment : Fragment() {
 
         val query = SearchFragmentArgs.fromBundle(requireArguments()).query
         search(query)
+
+        adapter = ResultAdapter(ResultClickListener { id ->
+            viewModel.onNavigateToDetail(id)
+            Log.i("anime_data", id.toString())
+        })
 
         binding.viewModel = viewModel
         binding.lifecycleOwner = this
