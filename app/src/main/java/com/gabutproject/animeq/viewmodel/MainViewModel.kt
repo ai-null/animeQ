@@ -23,11 +23,13 @@ class MainViewModel : ViewModel() {
     private val _seasonalAnime = MutableLiveData<SeasonalProperty>()
     private val _upcomingAnime = MutableLiveData<UpcomingProperty>()
     private val _navigateToDetail = MutableLiveData<Int>()
+    private val _isLoading = MutableLiveData<Boolean>()
 
     // GETTER
     val seasonalAnime: LiveData<SeasonalProperty> get() = _seasonalAnime
     val upcomingAnime: LiveData<UpcomingProperty> get() = _upcomingAnime
     val navigateToDetail: LiveData<Int> get() = _navigateToDetail
+    val isLoading: LiveData<Boolean> get() = _isLoading
 
     init {
         refreshDataFromRepository()
@@ -40,10 +42,12 @@ class MainViewModel : ViewModel() {
      */
     private fun refreshDataFromRepository() {
         uiScope.launch {
+            _isLoading.value = true
             jikanRepository.refreshData()
 
             _seasonalAnime.value = jikanRepository.seasonalAnime
             _upcomingAnime.value = jikanRepository.upcomingAnime
+            _isLoading.value = false
         }
     }
 

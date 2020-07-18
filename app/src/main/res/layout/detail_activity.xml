@@ -32,7 +32,8 @@
                 app:imageUrl="@{property.image_url}"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintTop_toTopOf="parent"
+                tools:ignore="ContentDescription" />
 
             <androidx.cardview.widget.CardView
                 android:id="@+id/poster_card"
@@ -50,7 +51,8 @@
                     android:background="#7A7A7A"
                     android:scaleType="centerCrop"
                     app:imageUrl="@{property.image_url}"
-                    tools:background="#7A7A7A" />
+                    tools:background="#7A7A7A"
+                    tools:ignore="ContentDescription" />
             </androidx.cardview.widget.CardView>
 
             <TextView

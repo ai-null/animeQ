@@ -1,12 +1,11 @@
 package com.gabutproject.animeq.util
 
 import android.view.View
-import android.widget.GridView
 import android.widget.ImageView
 import android.widget.ProgressBar
 import android.widget.TextView
+import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.net.toUri
-import androidx.core.view.isGone
 import androidx.databinding.BindingAdapter
 import com.bumptech.glide.Glide
 import com.gabutproject.animeq.R
@@ -61,8 +60,8 @@ fun TextView.status(status: Boolean) {
     }
 }
 
-@BindingAdapter("isLoading")
-fun ProgressBar.isLoading(status: Boolean) {
+@BindingAdapter("isLoadingProgress")
+fun ProgressBar.isLoadingProgress(status: Boolean) {
     status.let {
         visibility = if (status) {
             View.VISIBLE
@@ -73,7 +72,18 @@ fun ProgressBar.isLoading(status: Boolean) {
 }
 
 @BindingAdapter("isLoading")
-fun GridView.isLoading(status: Boolean) {
+fun ConstraintLayout.isLoading(status: Boolean) {
+    status.let {
+        visibility = if (status) {
+            View.GONE
+        } else {
+            View.VISIBLE
+        }
+    }
+}
+
+@BindingAdapter("isLoading")
+fun View.isLoading(status: Boolean) {
     status.let {
         visibility = if (status) {
             View.GONE

@@ -7,7 +7,11 @@ import android.widget.BaseAdapter
 import com.gabutproject.animeq.databinding.ResultItemBinding
 import com.gabutproject.animeq.network.Result
 
-class ResultAdapter : BaseAdapter() {
+class ResultClickListener(val clickListener: (id: Int) -> Unit) {
+    fun onClick(property: Result) = clickListener(property.mal_id)
+}
+
+class ResultAdapter(val clickListener: ResultClickListener) : BaseAdapter() {
 
     var data = listOf<Result>()
         set(value) {
@@ -28,12 +32,15 @@ class ResultAdapter : BaseAdapter() {
     override fun getView(position: Int, view: View?, parent: ViewGroup): View {
         val holder = ItemViewHolder.from(parent)
 
-        holder.bind(data[position])
+        holder.bind(data[position], clickListener)
         return holder.binding.root
     }
 
     class ItemViewHolder(val binding: ResultItemBinding) {
-        fun bind(property: Result) {
+        fun bind(
+            property: Result,
+            clickListener: ResultClickListener
+        ) {
             binding.property = property
         }
 
