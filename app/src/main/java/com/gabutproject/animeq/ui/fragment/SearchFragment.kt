@@ -27,13 +27,24 @@ class SearchFragment : Fragment() {
     ): View? {
         binding = SearchFragmentBinding.inflate(inflater, container, false)
 
-        // get data from query and begin search
+        // get data from query
         val query = SearchFragmentArgs.fromBundle(requireArguments()).query
+
+        // enable action bar & set title
+        setHasOptionsMenu(true)
+        (activity as AppCompatActivity).supportActionBar?.title = query
+
+        // setup all binding related
+        setupBinding()
         search(query)
 
-        // enable action bar
-        setHasOptionsMenu(true)
+        // live data observer
+        updateLiveData()
 
+        return binding.root
+    }
+
+    private fun setupBinding() {
         adapter = ResultAdapter(ResultClickListener { id ->
             viewModel.onNavigateToDetail(id)
         })
@@ -43,11 +54,6 @@ class SearchFragment : Fragment() {
 
         // look up the component and define the adapter with ResultAdapter
         binding.resultList.adapter = adapter
-
-        // live data observer
-        updateLiveData()
-
-        return binding.root
     }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
