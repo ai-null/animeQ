@@ -6,7 +6,7 @@ ___
 - [x] shows top airing anime
 - [x] shows top upcoming anime
 - [x] implement detail page to see more detailed information
-- [ ] re-design detail page
+- [x] re-design detail page
 - [ ] implement favorite / bookmark
 - [ ] implement [Room](https://developer.android.com/reference/androidx/room/RoomDatabase) database to store favorite data
-- [ ] implement search anime by title
+- [x] implement search anime by title
