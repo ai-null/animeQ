@@ -4,6 +4,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.view.*
 import android.widget.SearchView
+import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
@@ -42,6 +43,7 @@ class MainFragment : Fragment() {
         initUpcomingList()
 
         setHasOptionsMenu(true)
+        (activity as AppCompatActivity).supportActionBar?.title = getString(R.string.app_name)
 
         // live data handler
         updateLiveData()
@@ -130,11 +132,11 @@ class MainFragment : Fragment() {
      */
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
         // inflate menu layout to this fragment
-        inflater.inflate(R.menu.search_item, menu)
+        inflater.inflate(R.menu.main_search_item, menu)
         super.onCreateOptionsMenu(menu, inflater)
 
         // define search view component
-        val searchView = menu.findItem(R.id.search_item).actionView as SearchView
+        val searchView = menu.findItem(R.id.main_search_item).actionView as SearchView
 
         // set methods to search
         searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {

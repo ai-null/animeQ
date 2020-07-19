@@ -25,11 +25,14 @@ class SearchViewModel : ViewModel() {
     private val _result = MutableLiveData<SearchProperty>()
     private val _isLoading = MutableLiveData<Boolean>()
     private val _navigateToDetail = MutableLiveData<Int>()
+    private val _query = MutableLiveData<String>()
 
     // GETTER
     val result: LiveData<SearchProperty> get() = _result
     val isLoading: LiveData<Boolean> get() = _isLoading
     val navigateToDetail: LiveData<Int> get() = _navigateToDetail
+    val query: LiveData<String> get() = _query
+
 
     /**
      * search anime by title
@@ -40,6 +43,7 @@ class SearchViewModel : ViewModel() {
     fun search(keyword: String = "") {
         uiScope.launch {
             // begin the search
+            _query.value = keyword
             _isLoading.value = true
             jikanRepository.search(keyword)
 

@@ -2,12 +2,12 @@ package com.gabutproject.animeq.ui.fragment
 
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
+import android.view.*
+import android.widget.SearchView
+import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
+import com.gabutproject.animeq.R
 import com.gabutproject.animeq.adapter.ResultAdapter
 import com.gabutproject.animeq.adapter.ResultClickListener
 import com.gabutproject.animeq.databinding.SearchFragmentBinding
@@ -27,12 +27,15 @@ class SearchFragment : Fragment() {
     ): View? {
         binding = SearchFragmentBinding.inflate(inflater, container, false)
 
+        // get data from query and begin search
         val query = SearchFragmentArgs.fromBundle(requireArguments()).query
         search(query)
 
+        // enable action bar
+        setHasOptionsMenu(true)
+
         adapter = ResultAdapter(ResultClickListener { id ->
             viewModel.onNavigateToDetail(id)
-            Log.i("mal_id", id.toString())
         })
 
         binding.viewModel = viewModel
@@ -45,6 +48,33 @@ class SearchFragment : Fragment() {
         updateLiveData()
 
         return binding.root
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        inflater.inflate(R.menu.search_item, menu)
+
+        // define search view component
+        val item = menu.findItem(R.id.search_item)
+        val searchView = item.actionView as SearchView
+
+        // set methods to search
+        searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
+
+            // this will executed after user submitted
+            override fun onQueryTextSubmit(query: String?): Boolean {
+                if (query != null) {
+                    search(query)
+                }
+
+                return true
+            }
+
+            // this will executed when user typing
+            override fun onQueryTextChange(newText: String?): Boolean {
+                return false
+            }
+
+        })
     }
 
     /**
@@ -79,6 +109,12 @@ class SearchFragment : Fragment() {
                 )
 
                 viewModel.navigateComplete()
+            }
+        })
+
+        viewModel.query.observe(viewLifecycleOwner, Observer { query ->
+            query?.let {
+                (activity as AppCompatActivity).supportActionBar?.title = query
             }
         })
     }
