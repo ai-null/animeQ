@@ -9,4 +9,5 @@ ___
 - [x] re-design detail page
 - [ ] implement favorite / bookmark
 - [ ] implement [Room](https://developer.android.com/reference/androidx/room/RoomDatabase) database to store favorite data
+- [ ] implement error handler
 - [x] implement search anime by title
