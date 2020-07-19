@@ -4,6 +4,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.view.*
 import android.widget.SearchView
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
@@ -121,6 +122,12 @@ class SearchFragment : Fragment() {
         viewModel.query.observe(viewLifecycleOwner, Observer { query ->
             query?.let {
                 (activity as AppCompatActivity).supportActionBar?.title = query
+            }
+        })
+
+        viewModel.error.observe(viewLifecycleOwner, Observer { error ->
+            error?.let {
+                Toast.makeText(context, error.message, Toast.LENGTH_SHORT).show()
             }
         })
     }

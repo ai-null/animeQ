@@ -61,6 +61,9 @@ dependencies {
     def navigation_ui_version = "2.3.0"
     implementation "androidx.navigation:navigation-ui-ktx:$navigation_ui_version"
 
+    // okhttp
+    implementation 'com.squareup.okhttp3:okhttp:4.7.2'
+
     // retrofit | http/s handler
     def retrofit_version = '2.9.0'
     implementation "com.squareup.retrofit2:retrofit:$retrofit_version"

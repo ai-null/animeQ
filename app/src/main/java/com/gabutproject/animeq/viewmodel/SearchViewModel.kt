@@ -26,12 +26,14 @@ class SearchViewModel : ViewModel() {
     private val _isLoading = MutableLiveData<Boolean>()
     private val _navigateToDetail = MutableLiveData<Int>()
     private val _query = MutableLiveData<String>()
+    private val _error = MutableLiveData<Exception>()
 
     // GETTER
     val result: LiveData<SearchProperty> get() = _result
     val isLoading: LiveData<Boolean> get() = _isLoading
     val navigateToDetail: LiveData<Int> get() = _navigateToDetail
     val query: LiveData<String> get() = _query
+    val error: LiveData<Exception> get() = _error
 
 
     /**
@@ -45,7 +47,11 @@ class SearchViewModel : ViewModel() {
             // begin the search
             _query.value = keyword
             _isLoading.value = true
-            jikanRepository.search(keyword)
+            try {
+                jikanRepository.search(keyword)
+            } catch (e: Exception) {
+                _error.value = e
+            }
 
             // set data to setter method, and update loading state
             _result.value = jikanRepository.searchResult
