@@ -5,6 +5,7 @@ anime and manga catalog mobile app using Jikan API
   <img src="https://raw.githubusercontent.com/ai-null/animeQ/dev/demo/animeQ-demo.gif" height="400px" />
 </p>
 
+___
 ### Data Provider
 the data used on this app is provided and managed by [Jikan](https://jikan.moe/), unofficial MyAnimeList API
 
