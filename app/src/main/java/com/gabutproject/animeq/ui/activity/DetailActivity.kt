@@ -1,7 +1,11 @@
 package com.gabutproject.animeq.ui.activity
 
 import android.os.Bundle
+import android.view.Menu
+import android.view.MenuItem
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.app.ShareCompat
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
 import com.gabutproject.animeq.R
@@ -37,5 +41,35 @@ class DetailActivity : AppCompatActivity() {
                 title = it.title
             }
         })
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        menuInflater.inflate(R.menu.share_and_save_item, menu)
+        return true
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        val url = viewModel.animeProperty.value?.url
+
+        when (item.itemId) {
+            R.id.bookmark_item -> {
+                Toast.makeText(
+                    this,
+                    "Under development",
+                    Toast.LENGTH_SHORT
+                ).show()
+            }
+
+            R.id.share_item -> {
+                startActivity(
+                    ShareCompat.IntentBuilder.from(this)
+                        .setText(url)
+                        .setType("text/plain")
+                        .intent
+                )
+            }
+        }
+
+        return true
     }
 }

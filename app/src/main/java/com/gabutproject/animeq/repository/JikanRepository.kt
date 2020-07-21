@@ -35,6 +35,8 @@ class JikanRepository {
     /**
      * Get detailed information of provided animeId.
      * use this method on detail page only
+     *
+     * @param mal_id Int
      */
     suspend fun getAnimeDetail(mal_id: Int) {
         withContext(Dispatchers.IO) {
@@ -44,6 +46,11 @@ class JikanRepository {
         }
     }
 
+    /**
+     * Search for title
+     *
+     * @param key String
+     */
     suspend fun search(key: String) {
         withContext(Dispatchers.IO) {
             val result = JikanNetwork.service.search(key)

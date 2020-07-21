@@ -18,4 +18,6 @@
     <string name="source">Source</string>
     <string name="rating">Rating</string>
     <string name="search_title">Search title</string>
+    <string name="share">Share</string>
+    <string name="bookmark">Bookmark</string>
 </resources>
