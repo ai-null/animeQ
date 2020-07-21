@@ -82,7 +82,6 @@ class MainFragment : Fragment() {
             false
         )
 
-        // TODO: refactor and find why it's must be lateinit
         upcomingAdapter = UpcomingAdapter(UpcomingClickListener { id ->
             viewModel.onNavigateToDetail(id)
         })

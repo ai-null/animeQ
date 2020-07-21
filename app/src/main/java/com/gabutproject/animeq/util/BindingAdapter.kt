@@ -60,6 +60,11 @@ fun TextView.status(status: Boolean) {
     }
 }
 
+/**
+ * @param status Boolean
+ *
+ * ProgressBar only
+ */
 @BindingAdapter("isLoadingProgress")
 fun ProgressBar.isLoadingProgress(status: Boolean) {
     status.let {
@@ -71,6 +76,12 @@ fun ProgressBar.isLoadingProgress(status: Boolean) {
     }
 }
 
+/**
+ * @param status Boolean
+ *
+ * since it's such a pain to hide each Views on loading
+ * then, i decided to hide all the Layout,
+ */
 @BindingAdapter("isLoading")
 fun ConstraintLayout.isLoading(status: Boolean) {
     status.let {
@@ -82,6 +93,10 @@ fun ConstraintLayout.isLoading(status: Boolean) {
     }
 }
 
+/**
+ * Hide View on loading, this can be ImageView, TextView
+ * or all other -View components
+ */
 @BindingAdapter("isLoading")
 fun View.isLoading(status: Boolean) {
     status.let {

@@ -38,7 +38,6 @@ class MainViewModel : ViewModel() {
     /**
      * get & refresh data, used for initial call or pull-to-refresh
      * to get the new data.
-     * TODO: implement pull-to-refresh
      */
     private fun refreshDataFromRepository() {
         uiScope.launch {

@@ -50,6 +50,7 @@ class SearchFragment : Fragment() {
             viewModel.onNavigateToDetail(id)
         })
 
+        // assign viewModel from layout, and set the lifecycleOwner
         binding.viewModel = viewModel
         binding.lifecycleOwner = this
 
@@ -119,12 +120,15 @@ class SearchFragment : Fragment() {
             }
         })
 
+        // set title on actionBar each time new title submitted to search
         viewModel.query.observe(viewLifecycleOwner, Observer { query ->
             query?.let {
                 (activity as AppCompatActivity).supportActionBar?.title = query
             }
         })
 
+        // Toast will shows up on error,
+        // TODO: implement no service / lost connection
         viewModel.error.observe(viewLifecycleOwner, Observer { error ->
             error?.let {
                 Toast.makeText(context, error.message, Toast.LENGTH_SHORT).show()
