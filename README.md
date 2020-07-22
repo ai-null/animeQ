@@ -19,4 +19,4 @@ ___
 - [ ] implement [Room](https://developer.android.com/reference/androidx/room/RoomDatabase) database to store watchlist data
 - [x] implement error handler
 - [x] implement search anime by title
-- [ ] implement share
+- [x] implement share
