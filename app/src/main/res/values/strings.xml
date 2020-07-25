@@ -20,4 +20,6 @@
     <string name="search_title">Search title</string>
     <string name="share">Share</string>
     <string name="bookmark">Bookmark</string>
+    <string name="home">Home</string>
+    <string name="bookmarks">Bookmarks</string>
 </resources>
