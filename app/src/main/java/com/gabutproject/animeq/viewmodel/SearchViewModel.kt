@@ -47,14 +47,14 @@ class SearchViewModel : ViewModel() {
             // begin the search
             _query.value = keyword
             _isLoading.value = true
+
             try {
-                jikanRepository.search(keyword)
+                _result.value = jikanRepository.search(keyword)
             } catch (e: Exception) {
                 _error.value = e
             }
 
-            // set data to setter method, and update loading state
-            _result.value = jikanRepository.searchResult
+            // update loading state
             _isLoading.value = false
         }
     }

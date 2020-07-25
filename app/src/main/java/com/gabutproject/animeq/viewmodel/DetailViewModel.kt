@@ -24,6 +24,10 @@ class DetailViewModel constructor(private val mal_id: Int) : ViewModel() {
     private val _animeProperty = MutableLiveData<AnimeProperty>()
     val animeProperty: LiveData<AnimeProperty> get() = _animeProperty
 
+    // Error state
+    private val _error = MutableLiveData<Exception>()
+    val error: LiveData<Exception> get() = _error
+
     init {
         getData()
     }
@@ -35,9 +39,11 @@ class DetailViewModel constructor(private val mal_id: Int) : ViewModel() {
      */
     private fun getData() {
         uiScope.launch {
-            jikanRepository.getAnimeDetail(mal_id)
-
-            _animeProperty.value = jikanRepository.anime
+            try {
+                _animeProperty.value = jikanRepository.getAnimeDetail(mal_id)
+            } catch (e: Exception) {
+                _error.value = e
+            }
         }
     }
 }

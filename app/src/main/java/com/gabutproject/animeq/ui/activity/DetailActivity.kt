@@ -8,6 +8,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ShareCompat
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
+import androidx.navigation.findNavController
 import com.gabutproject.animeq.R
 import com.gabutproject.animeq.databinding.DetailActivityBinding
 import com.gabutproject.animeq.viewmodel.DetailViewModel
@@ -39,6 +40,12 @@ class DetailActivity : AppCompatActivity() {
             it?.let {
                 binding.property = it
                 title = it.title
+            }
+        })
+
+        viewModel.error.observe(this, Observer { error ->
+            error?.let {
+                Toast.makeText(this, error.message, Toast.LENGTH_SHORT).show()
             }
         })
     }

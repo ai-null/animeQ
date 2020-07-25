@@ -15,8 +15,6 @@ class JikanRepository {
 
     lateinit var seasonalAnime: SeasonalProperty
     lateinit var upcomingAnime: UpcomingProperty
-    lateinit var anime: AnimeProperty
-    lateinit var searchResult: SearchProperty
 
     /**
      * Refresh data from the network and replace the old data
@@ -38,11 +36,9 @@ class JikanRepository {
      *
      * @param mal_id Int
      */
-    suspend fun getAnimeDetail(mal_id: Int) {
-        withContext(Dispatchers.IO) {
-            val animeDetail = JikanNetwork.service.getDetailAnime(mal_id)
-
-            anime = animeDetail
+    suspend fun getAnimeDetail(mal_id: Int): AnimeProperty {
+        return withContext(Dispatchers.IO) {
+            return@withContext JikanNetwork.service.getDetailAnime(mal_id)
         }
     }
 
@@ -51,11 +47,9 @@ class JikanRepository {
      *
      * @param key String
      */
-    suspend fun search(key: String) {
-        withContext(Dispatchers.IO) {
-            val result = JikanNetwork.service.search(key)
-
-            searchResult = result
+    suspend fun search(key: String): SearchProperty {
+        return withContext(Dispatchers.IO) {
+            return@withContext JikanNetwork.service.search(key)
         }
     }
 }
