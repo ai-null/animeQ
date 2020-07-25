@@ -1,4 +1,6 @@
 # animeQ
+![Android CI](https://github.com/ai-null/animeQ/workflows/Android%20CI/badge.svg)
+
 anime and manga catalog mobile app using Jikan API
 
 <p align="center">
