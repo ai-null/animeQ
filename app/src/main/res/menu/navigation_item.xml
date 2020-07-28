@@ -6,7 +6,7 @@
         android:title="@string/home" />
 
     <item
-        android:id="@+id/bookmarks"
+        android:id="@+id/bookmarkFragment"
         android:icon="@drawable/ic_baseline_bookmarks_24"
         android:title="@string/bookmarks"/>
 </menu>

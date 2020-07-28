@@ -8,7 +8,6 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ShareCompat
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
-import androidx.navigation.findNavController
 import com.gabutproject.animeq.R
 import com.gabutproject.animeq.databinding.DetailActivityBinding
 import com.gabutproject.animeq.viewmodel.DetailViewModel

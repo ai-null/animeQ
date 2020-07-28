@@ -1,12 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto" android:id="@+id/main_nav"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/main_nav"
     app:startDestination="@id/mainFragment">
 
     <fragment
         android:id="@+id/mainFragment"
         android:name="com.gabutproject.animeq.ui.fragment.MainFragment"
-        android:label="MainFragment" >
+        android:label="MainFragment">
         <action
             android:id="@+id/action_mainFragment_to_searchFragment"
             app:destination="@id/searchFragment"
@@ -20,9 +21,13 @@
     <fragment
         android:id="@+id/searchFragment"
         android:name="com.gabutproject.animeq.ui.fragment.SearchFragment"
-        android:label="SearchFragment" >
+        android:label="SearchFragment">
         <argument
             android:name="query"
             app:argType="string" />
     </fragment>
+    <fragment
+        android:id="@+id/bookmarkFragment"
+        android:name="com.gabutproject.animeq.ui.fragment.BookmarkFragment"
+        android:label="BookmarkFragment" />
 </navigation>
