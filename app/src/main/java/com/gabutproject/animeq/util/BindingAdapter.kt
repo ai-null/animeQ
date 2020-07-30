@@ -1,5 +1,6 @@
 package com.gabutproject.animeq.util
 
+import android.graphics.BlurMaskFilter
 import android.view.View
 import android.widget.ImageView
 import android.widget.ProgressBar
@@ -8,7 +9,11 @@ import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.net.toUri
 import androidx.databinding.BindingAdapter
 import com.bumptech.glide.Glide
+import com.bumptech.glide.load.resource.bitmap.CenterCrop
 import com.gabutproject.animeq.R
+import com.squareup.picasso.Picasso
+import com.squareup.picasso.Transformation
+import jp.wasabeef.picasso.transformations.BlurTransformation
 
 /**
  * Image processing using glide
@@ -24,6 +29,24 @@ fun ImageView.imageUrl(imageUrl: String?) {
 
         Glide.with(this.context)
             .load(imageUri)
+            .into(this)
+    }
+}
+
+@BindingAdapter("imageBlur")
+fun ImageView.imageBlur(imageUrl: String?) {
+    imageUrl?.let {
+        val imageUri = imageUrl.toUri().buildUpon().scheme("https").build()
+
+        Picasso.get()
+            .load(imageUri)
+            .transform(
+                BlurTransformation(
+                    this.context,
+                    14,
+                    1
+                )
+            )
             .into(this)
     }
 }

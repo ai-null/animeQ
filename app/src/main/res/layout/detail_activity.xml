@@ -25,11 +25,11 @@
             <ImageView
                 android:id="@+id/background_cover_image"
                 android:layout_width="match_parent"
-                android:layout_height="200dp"
+                android:layout_height="116dp"
                 android:adjustViewBounds="true"
                 android:background="#BDBDBD"
+                app:imageBlur="@{property.image_url}"
                 android:scaleType="centerCrop"
-                app:imageUrl="@{property.image_url}"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"

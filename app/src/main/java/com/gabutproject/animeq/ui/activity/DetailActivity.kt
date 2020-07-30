@@ -1,5 +1,6 @@
 package com.gabutproject.animeq.ui.activity
 
+import android.graphics.BlurMaskFilter
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
@@ -11,6 +12,8 @@ import androidx.lifecycle.Observer
 import com.gabutproject.animeq.R
 import com.gabutproject.animeq.databinding.DetailActivityBinding
 import com.gabutproject.animeq.viewmodel.DetailViewModel
+import com.squareup.picasso.Picasso
+import com.squareup.picasso.Target
 
 class DetailActivity : AppCompatActivity() {
 
