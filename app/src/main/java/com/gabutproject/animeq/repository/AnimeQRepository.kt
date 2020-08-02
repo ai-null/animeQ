@@ -20,7 +20,7 @@ class AnimeQRepository constructor(application: Application) {
     }
 
     /**
-     * remove bookmared from database
+     * remove bookmarked from database
      *
      * @param mal_id Integer
      */
@@ -37,7 +37,7 @@ class AnimeQRepository constructor(application: Application) {
      */
     suspend fun checkBookmark(mal_id: Int): List<Int> {
         return withContext(Dispatchers.IO) {
-            return@withContext database.bookmarkDao.getBookmared(mal_id)
+            return@withContext database.bookmarkDao.getBookmarked(mal_id)
         }
     }
 }

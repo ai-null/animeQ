@@ -15,7 +15,7 @@ interface BookmarkDao {
     fun getBookmarks(): List<Int>
 
     @Query("SELECT * FROM bookmark WHERE mal_id = :mal_id")
-    fun getBookmared(mal_id: Int): List<Int>
+    fun getBookmarked(mal_id: Int): List<Int>
 }
 
 @Database(version = 1, exportSchema = false, entities = [BookmarkEntities::class])

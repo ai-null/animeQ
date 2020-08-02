@@ -11,7 +11,7 @@ class ResultClickListener(val clickListener: (id: Int) -> Unit) {
     fun onClick(property: Result) = clickListener(property.mal_id)
 }
 
-class ResultAdapter(val clickListener: ResultClickListener) : BaseAdapter() {
+class ResultAdapter(private val clickListener: ResultClickListener) : BaseAdapter() {
 
     var data = listOf<Result>()
         set(value) {
