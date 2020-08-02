@@ -4,8 +4,8 @@ import android.app.Application
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.gabutproject.animeq.database.getDatabase
 import com.gabutproject.animeq.network.AnimeProperty
+import com.gabutproject.animeq.repository.AnimeQRepository
 import com.gabutproject.animeq.repository.JikanRepository
 import kotlinx.coroutines.*
 
@@ -28,9 +28,13 @@ class DetailViewModel(private val mal_id: Int, application: Application) : ViewM
     private val _error = MutableLiveData<Exception>()
     val error: LiveData<Exception> get() = _error
 
-    private val database = getDatabase(application).bookmarkDao
+    private val animeQRepository = AnimeQRepository(application)
+
+    private val _bookmarked = MutableLiveData<Boolean>()
+    val bookmarked: LiveData<Boolean> get() = _bookmarked
 
     init {
+        checkBookmarkedFromRepository()
         getData()
     }
 
@@ -49,9 +53,31 @@ class DetailViewModel(private val mal_id: Int, application: Application) : ViewM
         }
     }
 
-    private suspend fun addBookmark() {
-        withContext(Dispatchers.IO) {
-            database.addBookmark(mal_id)
+    private fun checkBookmarkedFromRepository() {
+        uiScope.launch {
+            val data = animeQRepository.checkBookmark(mal_id)
+            if (data.isNotEmpty()) {
+                _bookmarked.value = true
+            }
+        }
+    }
+
+    /**
+     * Add bookmark to the database
+     * the repository using IO thread so it will not block the UI
+     * then executed using UI thread
+     */
+    fun bookmark() {
+        uiScope.launch {
+            _bookmarked.let {
+                if (it.value!!) {
+                    animeQRepository.addBookmark(mal_id)
+                    _bookmarked.value = true
+                } else { // executed on falsy value
+                    animeQRepository.removeBookmark(mal_id)
+                    _bookmarked.value = false
+                }
+            }
         }
     }
 }

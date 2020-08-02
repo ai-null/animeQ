@@ -60,7 +60,7 @@ class DetailActivity : AppCompatActivity() {
 
         when (item.itemId) {
             R.id.bookmark_item -> {
-
+                viewModel.bookmark()
             }
 
             R.id.share_item -> {
