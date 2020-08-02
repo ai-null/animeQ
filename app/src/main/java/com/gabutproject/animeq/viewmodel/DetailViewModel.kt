@@ -1,16 +1,16 @@
 package com.gabutproject.animeq.viewmodel
 
+import android.app.Application
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.gabutproject.animeq.database.getDatabase
 import com.gabutproject.animeq.network.AnimeProperty
 import com.gabutproject.animeq.repository.JikanRepository
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.SupervisorJob
-import kotlinx.coroutines.launch
+import kotlinx.coroutines.*
 
-class DetailViewModel constructor(private val mal_id: Int) : ViewModel() {
+class DetailViewModel(private val mal_id: Int, application: Application) : ViewModel() {
+
     // make job to handle all job-related, such as canceling all job
     private val job = SupervisorJob()
 
@@ -28,6 +28,8 @@ class DetailViewModel constructor(private val mal_id: Int) : ViewModel() {
     private val _error = MutableLiveData<Exception>()
     val error: LiveData<Exception> get() = _error
 
+    private val database = getDatabase(application).bookmarkDao
+
     init {
         getData()
     }
@@ -44,6 +46,12 @@ class DetailViewModel constructor(private val mal_id: Int) : ViewModel() {
             } catch (e: Exception) {
                 _error.value = e
             }
+        }
+    }
+
+    private suspend fun addBookmark() {
+        withContext(Dispatchers.IO) {
+            database.addBookmark(mal_id)
         }
     }
 }

@@ -1,6 +1,5 @@
 package com.gabutproject.animeq.ui.activity
 
-import android.graphics.BlurMaskFilter
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
@@ -12,8 +11,6 @@ import androidx.lifecycle.Observer
 import com.gabutproject.animeq.R
 import com.gabutproject.animeq.databinding.DetailActivityBinding
 import com.gabutproject.animeq.viewmodel.DetailViewModel
-import com.squareup.picasso.Picasso
-import com.squareup.picasso.Target
 
 class DetailActivity : AppCompatActivity() {
 
@@ -31,7 +28,8 @@ class DetailActivity : AppCompatActivity() {
         // null-safety - check if the data is ready or not
         // mal_id should be ready the moment detail activity accessed. this is for safety
         if (intent.hasExtra("mal_id")) {
-            viewModel = DetailViewModel(intent.extras!!.getInt("mal_id"))
+            val application = requireNotNull(this).application
+            viewModel = DetailViewModel(intent.extras!!.getInt("mal_id"), application)
 
             updateLiveData()
         }
@@ -62,11 +60,7 @@ class DetailActivity : AppCompatActivity() {
 
         when (item.itemId) {
             R.id.bookmark_item -> {
-                Toast.makeText(
-                    this,
-                    "Under development",
-                    Toast.LENGTH_SHORT
-                ).show()
+
             }
 
             R.id.share_item -> {

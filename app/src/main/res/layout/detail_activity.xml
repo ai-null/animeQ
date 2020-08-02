@@ -20,12 +20,11 @@
             android:paddingBottom="@dimen/margin"
             tools:context=".ui.activity.DetailActivity">
 
-            <!-- TODO: make cover background has blurry effect -->
             <!-- TODO: implement related cards-->
             <ImageView
                 android:id="@+id/background_cover_image"
                 android:layout_width="match_parent"
-                android:layout_height="116dp"
+                android:layout_height="175dp"
                 android:adjustViewBounds="true"
                 android:background="#BDBDBD"
                 app:imageBlur="@{property.image_url}"
@@ -39,10 +38,10 @@
                 android:id="@+id/poster_card"
                 android:layout_width="150dp"
                 android:layout_height="200dp"
+                android:layout_marginTop="@dimen/margin"
                 android:layout_marginStart="@dimen/margin"
-                app:layout_constraintBottom_toBottomOf="@id/background_cover_image"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/background_cover_image">
+                app:layout_constraintTop_toTopOf="parent">
 
                 <ImageView
                     android:id="@+id/poster_image"
@@ -59,17 +58,16 @@
                 android:id="@+id/title_text"
                 style="@style/sub_headline"
                 android:layout_width="0dp"
-                android:layout_height="0dp"
+                android:layout_height="wrap_content"
                 android:layout_marginHorizontal="@dimen/margin"
                 android:layout_marginTop="14dp"
                 android:layout_marginBottom="@dimen/margin"
                 android:maxLines="3"
+                android:textColor="@color/colorPrimaryText"
                 android:text="@{property.title}"
-                app:layout_constraintBottom_toTopOf="@id/studio_text"
+                app:layout_constraintBottom_toBottomOf="@id/background_cover_image"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0"
                 app:layout_constraintStart_toEndOf="@id/poster_card"
-                app:layout_constraintTop_toBottomOf="@id/background_cover_image"
                 tools:text="Yosuga no sora" />
 
             <TextView
@@ -80,7 +78,7 @@
                 app:layout_constraintBottom_toBottomOf="@id/poster_card"
                 app:layout_constraintEnd_toStartOf="@id/score_text"
                 app:layout_constraintStart_toStartOf="@id/title_text"
-                app:layout_constraintTop_toBottomOf="@+id/title_text"
+                app:layout_constraintTop_toBottomOf="@+id/background_cover_image"
                 tools:text="DEEN" />
 
             <TextView
@@ -88,9 +86,9 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/small_margin"
+                android:layout_marginEnd="@dimen/margin"
                 android:text="@{property.score.toString()}"
-                app:layout_constraintBottom_toBottomOf="@id/poster_card"
-                app:layout_constraintEnd_toEndOf="@id/title_text"
+                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toEndOf="@id/studio_text"
                 app:layout_constraintTop_toTopOf="@id/studio_text"
                 tools:text="8.4" />
