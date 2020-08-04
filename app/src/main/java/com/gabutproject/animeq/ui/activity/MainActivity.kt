@@ -1,14 +1,11 @@
 package com.gabutproject.animeq.ui.activity
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import androidx.fragment.app.Fragment
+import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.findNavController
 import androidx.navigation.ui.NavigationUI
 import androidx.navigation.ui.setupWithNavController
 import com.gabutproject.animeq.R
-import com.gabutproject.animeq.ui.fragment.BookmarkFragment
-import com.gabutproject.animeq.ui.fragment.MainFragment
 import com.google.android.material.bottomnavigation.BottomNavigationView
 
 class MainActivity : AppCompatActivity() {

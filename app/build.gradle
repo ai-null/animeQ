@@ -57,9 +57,9 @@ dependencies {
     implementation 'com.squareup.picasso:picasso:2.71828'
 
     // Room database
-    implementation 'androidx.room:room-ktx:2.3.0-alpha02'
-    implementation 'androidx.room:room-runtime:2.3.0-alpha02'
-    kapt('androidx.room:room-compiler:2.3.0-alpha02')
+    def room_version = '2.2.5'
+    implementation "androidx.room:room-runtime:$room_version"
+    kapt("androidx.room:room-compiler:$room_version")
 
     // testing unit
     testImplementation 'junit:junit:4.13'
@@ -70,7 +70,6 @@ dependencies {
     def navigation_ui_version = "2.3.0"
     implementation "androidx.navigation:navigation-ui-ktx:$navigation_ui_version"
     implementation "com.google.android.material:material:1.1.0"
-
 
     // okhttp
     implementation 'com.squareup.okhttp3:okhttp:4.7.2'

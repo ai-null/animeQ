@@ -59,10 +59,6 @@ class DetailActivity : AppCompatActivity() {
         val url = viewModel.animeProperty.value?.url
 
         when (item.itemId) {
-            R.id.bookmark_item -> {
-                viewModel.bookmark()
-            }
-
             R.id.share_item -> {
                 startActivity(
                     ShareCompat.IntentBuilder.from(this)
