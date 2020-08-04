@@ -16,13 +16,13 @@ interface BookmarkDao {
     fun getBookmarks(): LiveData<List<BookmarkEntities>>
 
     @Query("SELECT * FROM bookmark WHERE mal_id = :mal_id LIMIT 1")
-    fun getBookmarked(mal_id: Int): LiveData<List<BookmarkEntities>>
+    fun getBookmarked(mal_id: Int): List<BookmarkEntities>
 }
 
 @Database(entities = [BookmarkEntities::class], version = 1, exportSchema = false)
 abstract class AnimeQDatabase : RoomDatabase() {
 
-    abstract fun bookmarkDao(): BookmarkDao
+    abstract val bookmarkDao: BookmarkDao
 
     companion object {
         @Volatile

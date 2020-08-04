@@ -35,6 +35,32 @@ class DetailActivity : AppCompatActivity() {
         }
     }
 
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        menuInflater.inflate(R.menu.share_and_save_item, menu)
+        return true
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        val url = viewModel.animeProperty.value?.url
+
+        when (item.itemId) {
+            R.id.bookmark_item -> {
+                viewModel.bookmark()
+            }
+
+            R.id.share_item -> {
+                startActivity(
+                    ShareCompat.IntentBuilder.from(this)
+                        .setText(url)
+                        .setType("text/plain")
+                        .intent
+                )
+            }
+        }
+
+        return true
+    }
+
     private fun updateLiveData() {
         viewModel.animeProperty.observe(this, Observer {
             it?.let {
@@ -48,27 +74,19 @@ class DetailActivity : AppCompatActivity() {
                 Toast.makeText(this, error.message, Toast.LENGTH_SHORT).show()
             }
         })
-    }
 
-    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
-        menuInflater.inflate(R.menu.share_and_save_item, menu)
-        return true
-    }
-
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        val url = viewModel.animeProperty.value?.url
-
-        when (item.itemId) {
-            R.id.share_item -> {
-                startActivity(
-                    ShareCompat.IntentBuilder.from(this)
-                        .setText(url)
-                        .setType("text/plain")
-                        .intent
-                )
+        viewModel.bookmarked.observe(this, Observer { bookmarked ->
+            bookmarked?.let {
+                if (bookmarked) {
+                    Toast.makeText(this, "Bookmared", Toast.LENGTH_SHORT).show()
+                } else {
+                    Toast.makeText(
+                        this,
+                        "Removed from bookmark",
+                        Toast.LENGTH_SHORT
+                    ).show()
+                }
             }
-        }
-
-        return true
+        })
     }
 }
