@@ -19,7 +19,7 @@ ___
 - [x] implement detail page to see more detailed information
 - [x] re-design detail page
 - [ ] implement favorite / bookmark
-- [ ] implement [Room](https://developer.android.com/reference/androidx/room/RoomDatabase) database to store watchlist data
+- [x] implement [Room](https://developer.android.com/reference/androidx/room/RoomDatabase) database to store watchlist data
 - [x] implement error handler
 - [x] implement search anime by title
 - [x] implement share
