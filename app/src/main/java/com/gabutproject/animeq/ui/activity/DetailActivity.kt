@@ -16,6 +16,7 @@ class DetailActivity : AppCompatActivity() {
 
     private lateinit var binding: DetailActivityBinding
     private lateinit var viewModel: DetailViewModel
+    private var globalMenu: Menu? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -37,6 +38,14 @@ class DetailActivity : AppCompatActivity() {
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         menuInflater.inflate(R.menu.share_and_save_item, menu)
+        this.globalMenu = menu
+
+        viewModel.bookmarked.observe(this, Observer { bookmarked ->
+            bookmarked?.let {
+                setBookmarked(it)
+            }
+        })
+
         return true
     }
 
@@ -44,9 +53,7 @@ class DetailActivity : AppCompatActivity() {
         val url = viewModel.animeProperty.value?.url
 
         when (item.itemId) {
-            R.id.bookmark_item -> {
-                viewModel.bookmark()
-            }
+            R.id.bookmark_item -> viewModel.bookmark()
 
             R.id.share_item -> {
                 startActivity(
@@ -70,23 +77,36 @@ class DetailActivity : AppCompatActivity() {
         })
 
         viewModel.error.observe(this, Observer { error ->
-            error?.let {
-                Toast.makeText(this, error.message, Toast.LENGTH_SHORT).show()
+            error.message?.let {
+                showToast(it)
             }
         })
+    }
 
-        viewModel.bookmarked.observe(this, Observer { bookmarked ->
-            bookmarked?.let {
-                if (bookmarked) {
-                    Toast.makeText(this, "Bookmared", Toast.LENGTH_SHORT).show()
-                } else {
-                    Toast.makeText(
-                        this,
-                        "Removed from bookmark",
-                        Toast.LENGTH_SHORT
-                    ).show()
-                }
+    private fun showToast(message: String) {
+        Toast.makeText(
+            this,
+            message,
+            Toast.LENGTH_SHORT
+        ).show()
+    }
+
+    private fun setBookmarked(bookmarked: Boolean) {
+        val item = globalMenu?.getItem(0)
+        val color = this.getColor(R.color.colorPrimaryText)
+
+        globalMenu?.let {
+            if (bookmarked) {
+                val icon = getDrawable(R.drawable.ic_baseline_bookmark_24)
+                icon!!.setTint(color)
+                item?.icon = icon
+                showToast("Bookmarked")
+            } else {
+                val icon = getDrawable(R.drawable.ic_bookmark_border_24)
+                icon!!.setTint(color)
+                item?.icon = icon
+                showToast("Removed from Bookmark")
             }
-        })
+        }
     }
 }
