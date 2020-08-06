@@ -29,9 +29,6 @@ class DetailViewModel(private val mal_id: Int, app: Application) : ViewModel() {
     private val _error = MutableLiveData<Exception>()
     val error: LiveData<Exception> get() = _error
 
-    private val _bookmarked = MutableLiveData<Boolean>(false)
-    val bookmarked: LiveData<Boolean> get() = _bookmarked
-
     private val animeQRepository = AnimeQRepository(app)
 
     init {
@@ -54,12 +51,26 @@ class DetailViewModel(private val mal_id: Int, app: Application) : ViewModel() {
         }
     }
 
+    /**
+     * Bookmarked LiveData
+     *  set bookmark of specific information
+     */
+    private val _bookmarked = MutableLiveData<Boolean>(false)
+    val bookmarked: LiveData<Boolean> get() = _bookmarked
+
+    /**
+     * this method used for checking bookmarked status from db
+     * and will executed the moment viewModel initialized
+     */
     private fun checkBookmarkedFromRepository() {
         uiScope.launch {
             val data = animeQRepository.checkBookmark(mal_id)
             _bookmarked.value = data.isNotEmpty()
         }
     }
+
+    private val _bookmarkedStatus = MutableLiveData<Boolean>()
+    val bookmarkedStatus: LiveData<Boolean> get() = _bookmarkedStatus
 
     /**
      * Add bookmark to the database
@@ -68,16 +79,16 @@ class DetailViewModel(private val mal_id: Int, app: Application) : ViewModel() {
      */
     fun bookmark() {
         uiScope.launch {
-            try {
-                if (_bookmarked.value!!) {
-                    animeQRepository.removeBookmark(mal_id)
-                    _bookmarked.value = false
-                } else {
-                    animeQRepository.addBookmark(BookmarkEntities(mal_id))
-                    _bookmarked.value = true
+            _bookmarked.value?.let {
+                try {
+                    if (it) animeQRepository.removeBookmark(mal_id)
+                    else animeQRepository.addBookmark(BookmarkEntities(mal_id))
+
+                    _bookmarked.value = !it
+                    _bookmarkedStatus.value = !it
+                } catch (err: Exception) {
+                    _error.value = err
                 }
-            } catch (err: Exception) {
-                _error.value = err
             }
         }
     }

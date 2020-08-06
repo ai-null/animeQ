@@ -16,7 +16,6 @@ class DetailActivity : AppCompatActivity() {
 
     private lateinit var binding: DetailActivityBinding
     private lateinit var viewModel: DetailViewModel
-    private var globalMenu: Menu? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -36,13 +35,19 @@ class DetailActivity : AppCompatActivity() {
         }
     }
 
+    /**
+     * Options menu creation
+     *
+     * i put bookmarked liveData observer here because it need Menu
+     * to be defined the moment it called
+     */
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         menuInflater.inflate(R.menu.share_and_save_item, menu)
-        this.globalMenu = menu
 
+        // Bookmarked LiveData Observer
         viewModel.bookmarked.observe(this, Observer { bookmarked ->
             bookmarked?.let {
-                setBookmarked(it)
+                setBookmarked(it, menu)
             }
         })
 
@@ -50,12 +55,11 @@ class DetailActivity : AppCompatActivity() {
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        val url = viewModel.animeProperty.value?.url
-
         when (item.itemId) {
             R.id.bookmark_item -> viewModel.bookmark()
 
             R.id.share_item -> {
+                val url = viewModel.animeProperty.value?.url
                 startActivity(
                     ShareCompat.IntentBuilder.from(this)
                         .setText(url)
@@ -81,8 +85,20 @@ class DetailActivity : AppCompatActivity() {
                 showToast(it)
             }
         })
+
+        viewModel.bookmarkedStatus.observe(this, Observer {
+            it?.let {
+                if (it) showToast("Bookmarked")
+                else showToast("Removed from Bookmark")
+            }
+        })
     }
 
+    /**
+     * show show toast
+     * @param message String
+     *  message to show to the user
+     */
     private fun showToast(message: String) {
         Toast.makeText(
             this,
@@ -91,22 +107,31 @@ class DetailActivity : AppCompatActivity() {
         ).show()
     }
 
-    private fun setBookmarked(bookmarked: Boolean) {
-        val item = globalMenu?.getItem(0)
-        val color = this.getColor(R.color.colorPrimaryText)
+    /**
+     * Set bookmarked Icon on options menu
+     *
+     * @param bookmarked Boolean
+     *  bookmarked state
+     *
+     * @param menu Menu?
+     *  menu to set icon tint's color
+     */
+    private fun setBookmarked(bookmarked: Boolean, menu: Menu?) {
+        menu?.let {
+            val item = it.getItem(0)
 
-        globalMenu?.let {
-            if (bookmarked) {
-                val icon = getDrawable(R.drawable.ic_baseline_bookmark_24)
-                icon!!.setTint(color)
-                item?.icon = icon
-                showToast("Bookmarked")
-            } else {
-                val icon = getDrawable(R.drawable.ic_bookmark_border_24)
-                icon!!.setTint(color)
-                item?.icon = icon
-                showToast("Removed from Bookmark")
+            // conditional drawable resources
+            val drawable = when (bookmarked) {
+                true -> R.drawable.ic_baseline_bookmark_24
+                else -> R.drawable.ic_bookmark_border_24
             }
+
+            // set drawable and color
+            val icon = getDrawable(drawable)
+            val color = this.getColor(R.color.colorPrimaryText)
+            icon!!.setTint(color)
+
+            item.icon = icon
         }
     }
 }
