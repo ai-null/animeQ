@@ -5,7 +5,10 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import com.gabutproject.animeq.R
+import androidx.lifecycle.Observer
+import com.gabutproject.animeq.adapter.BookmarkAdapter
+import com.gabutproject.animeq.databinding.BookmarkFragmentBinding
+import com.gabutproject.animeq.viewmodel.BookmarkViewModel
 
 class BookmarkFragment : Fragment() {
     override fun onCreateView(
@@ -13,6 +16,22 @@ class BookmarkFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        return inflater.inflate(R.layout.bookmark_fragment, container, false)
+        val application = requireNotNull(this.activity).application
+        val viewModel = BookmarkViewModel(application)
+
+        val binding = BookmarkFragmentBinding.inflate(inflater, container, false)
+        val adapter = BookmarkAdapter()
+
+        binding.lifecycleOwner = viewLifecycleOwner
+        binding.viewModel = viewModel
+        binding.bookmarkList.adapter = adapter
+
+        viewModel.bookmarks.observe(viewLifecycleOwner, Observer { bookmarkList ->
+            bookmarkList?.let {
+                adapter.data = it
+            }
+        })
+
+        return binding.root
     }
 }

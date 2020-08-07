@@ -166,3 +166,9 @@ data class SearchProperty(
 	val results: List<Result>,
 	val last_page: Int
 )
+
+data class Bookmark(
+    val mal_id: Int,
+    val title: String,
+    val img_url: String
+)

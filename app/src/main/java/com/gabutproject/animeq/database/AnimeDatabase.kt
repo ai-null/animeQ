@@ -13,13 +13,13 @@ interface BookmarkDao {
     fun removeBookmark(mal_id: Int)
 
     @Query("SELECT * FROM bookmark")
-    fun getBookmarks(): LiveData<List<BookmarkEntities>>
+    fun getBookmarks(): List<BookmarkEntities>
 
     @Query("SELECT * FROM bookmark WHERE mal_id = :mal_id LIMIT 1")
     fun getBookmarked(mal_id: Int): List<BookmarkEntities>
 }
 
-@Database(entities = [BookmarkEntities::class], version = 1, exportSchema = false)
+@Database(entities = [BookmarkEntities::class], version = 2, exportSchema = false)
 abstract class AnimeQDatabase : RoomDatabase() {
 
     abstract val bookmarkDao: BookmarkDao
@@ -35,7 +35,7 @@ abstract class AnimeQDatabase : RoomDatabase() {
                         context.applicationContext,
                         AnimeQDatabase::class.java,
                         "anime_database"
-                    ).build()
+                    ).fallbackToDestructiveMigration().build()
                 }
 
                 return instance

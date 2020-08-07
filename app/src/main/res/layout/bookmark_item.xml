@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="property"
+            type="com.gabutproject.animeq.network.Bookmark" />
+    </data>
+
+    <androidx.cardview.widget.CardView
+        style="@style/card">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <ImageView
+                android:id="@+id/cover_image"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:scaleType="centerCrop"
+                app:imageUrl="@{property.img_url}"
+                app:layout_constraintBottom_toTopOf="@id/item_title"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:ignore="ContentDescription" />
+
+            <TextView
+                android:id="@+id/item_title"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:maxLines="2"
+                android:padding="@dimen/small_margin"
+                android:text="@{property.title}"
+                android:textAppearance="?attr/textAppearanceHeadline2"
+                android:textSize="@dimen/text_size"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/cover_image"
+                tools:text="Yosuga No Sora" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.cardview.widget.CardView>
+</layout>

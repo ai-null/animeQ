@@ -4,7 +4,6 @@ import android.app.Application
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.gabutproject.animeq.database.BookmarkEntities
 import com.gabutproject.animeq.network.AnimeProperty
 import com.gabutproject.animeq.repository.AnimeQRepository
 import com.gabutproject.animeq.repository.JikanRepository
@@ -82,7 +81,11 @@ class DetailViewModel(private val mal_id: Int, app: Application) : ViewModel() {
             _bookmarked.value?.let {
                 try {
                     if (it) animeQRepository.removeBookmark(mal_id)
-                    else animeQRepository.addBookmark(BookmarkEntities(mal_id))
+                    else {
+                        _animeProperty.value?.let { data ->
+                            animeQRepository.addBookmark(mal_id, data.title, data.image_url)
+                        }
+                    }
 
                     _bookmarked.value = !it
                     _bookmarkedStatus.value = !it
