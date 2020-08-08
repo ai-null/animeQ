@@ -8,10 +8,15 @@
         <variable
             name="property"
             type="com.gabutproject.animeq.network.Bookmark" />
+
+        <variable
+            name="clickListener"
+            type="com.gabutproject.animeq.adapter.BookmarkClickListener" />
     </data>
 
     <androidx.cardview.widget.CardView
-        style="@style/card">
+        style="@style/card"
+        android:onClick="@{() -> clickListener.onClick(property)}">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"

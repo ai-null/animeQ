@@ -17,6 +17,10 @@ class BookmarkViewModel (app: Application): ViewModel() {
     private val _bookmarks = MutableLiveData<List<Bookmark>>()
     val bookmarks: LiveData<List<Bookmark>> get() = _bookmarks
 
+    private val _onNavigateToDetail = MutableLiveData<Int>()
+    val onNavigateToDetail: LiveData<Int> get() = _onNavigateToDetail
+
+
     init {
         getBookmarks()
     }
@@ -27,5 +31,13 @@ class BookmarkViewModel (app: Application): ViewModel() {
 
             _bookmarks.value = bookmarkList
         }
+    }
+
+    fun navigateToDetail(mal_id: Int) {
+        _onNavigateToDetail.value = mal_id
+    }
+
+    fun onNavigateCompleted() {
+        _onNavigateToDetail.value = null
     }
 }

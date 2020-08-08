@@ -7,7 +7,11 @@ import android.widget.BaseAdapter
 import com.gabutproject.animeq.databinding.BookmarkItemBinding
 import com.gabutproject.animeq.network.Bookmark
 
-class BookmarkAdapter : BaseAdapter() {
+class BookmarkClickListener(val clickListener: (mal_id: Int) -> Unit) {
+    fun onClick(bookmark: Bookmark) = clickListener(bookmark.mal_id)
+}
+
+class BookmarkAdapter constructor(val clickListener: BookmarkClickListener) : BaseAdapter() {
     var data = listOf<Bookmark>()
         set(value) {
             field = value
@@ -20,15 +24,17 @@ class BookmarkAdapter : BaseAdapter() {
     override fun getView(position: Int, viewHolder: View?, container: ViewGroup): View {
         val holder = from(container)
 
-        holder.bind(data[position])
+        holder.bind(data[position], clickListener)
         return holder.binding.root
     }
 
     class ItemViewHolder(val binding: BookmarkItemBinding) {
         fun bind(
-            bookmark: Bookmark
+            bookmark: Bookmark,
+            clickListener: BookmarkClickListener
         ) {
             binding.property = bookmark
+            binding.clickListener = clickListener
         }
     }
 
