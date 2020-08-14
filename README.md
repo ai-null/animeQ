@@ -23,3 +23,4 @@ ___
 - [x] implement error handler
 - [x] implement search anime by title
 - [x] implement share
+- [ ] update demo gif
